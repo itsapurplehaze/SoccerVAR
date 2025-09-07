@@ -11,14 +11,30 @@
 </head>
 <body>
   <!--Escena-->
-  <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind;" 
+  <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind;" color-space="sRGB"
+  renderer="colorManagement: true, physicallyCorrectLights"
   vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+
     <!--Cámara-->
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <!--Modelos 3d-->
+    <!--Carga de modelos y recursos-->
+    <a-assets>
+      <a-asset-item id="Mex-taco" src="./assets/taco.glb"></a-asset-item>
+    </a-assets>
+
+
+    <!--Index de las banderas en el mind-->
     <a-entity mindar-image-target="targetIndex: 0">
-      <a-sphere position="0 0 0" radius="0.25" color="blue"></a-sphere>
+      <!--<a-sphere position="0 0 0" radius="0.25" color="blue"></a-sphere>-->
+      <!--Modelos 3D-->
+        <a-gltf-model 
+          src="#Mex-taco"
+          position="0 0 0.1"
+          scale="0.5 0.5 0.5"
+          rotation="0 180 0"
+          animation-mixer>
+        </a-gltf-model>
     </a-entity>
   </a-scene>
 </body>
