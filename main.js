@@ -1,2 +1,3 @@
-import * as THREE from 'three';
-import { MindARThree } from 'mindar-image-three';
+document.querySelector("a-scene").addEventListener("loaded", () => {
+  console.log("Escena lista, esperando detección...");
+});

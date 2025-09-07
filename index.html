@@ -4,18 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
     <title>SoccerVAR</title>
     <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-    <a-scene mindar-image="imageTargetSrc: ./demo/targets.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <!-- Overlay de escaneo -->
+    <div id="example-scanning-overlay" class="overlay">
+      <p>Escanea la imagen objetivo...</p>
+    </div>
+
+    <!--Escena-->
+    <a-scene
+    mindar-image="imageTargetSrc: ./demo/targets.mind; uiScanning: #example-scanning-overlay; maxTrack: 1"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+      <!--Modelos 3d-->
+      <a-assets>
+        <a-asset-item id="bearModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/bear/scene.gltf"></a-asset-item>
+      </a-assets>
+
+      <!--Cámara-->
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane color="blue" opaciy="0.5" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-      </a-entity>
+      <a-gltf-model 
+        src="#bearModel"
+        position="0 -0.25 0"
+        rotation="0 0 0"
+        scale="0.05 0.05 0.05"
+        animation-mixer>
+      </a-gltf-model>
+    </a-entity>
+
     </a-scene>
+
+    <script src="./main.js"></script>
 </body>
 </html>
+<!--
+  <!-- Overlay de escaneo -->
+  <div id="example-scanning-overlay" class="overlay">
+    <p>Escanea la imagen objetivo...</p>
+  </div>
+
+  <!-- Escena AR -->
+  <a-scene
+    mindar-image="imageTargetSrc: ./demo/targets.mind; uiScanning: #example-scanning-overlay; maxTrack: 1"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <!-- Modelos -->
+    <a-assets>
+      <a-asset-item id="bearModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/bear/scene.gltf"></a-asset-item>
+    </a-assets>
+
+    <!-- Cámara -->
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <!-- Target -->
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-gltf-model 
+        src="#bearModel"
+        position="0 -0.25 0"
+        rotation="0 0 0"
+        scale="0.05 0.05 0.05"
+        animation-mixer>
+      </a-gltf-model>
+    </a-entity>
+  </a-scene>-->
