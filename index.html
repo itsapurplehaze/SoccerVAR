@@ -3,38 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image.prod.js"></script>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <title>SoccerVAR</title>
     <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-    <!--Escena-->
-    <a-scene
-    mindar-image="imageTargetSrc: ./assets/targets.mind; maxTrack: 1"
-    color-space="sRGB"
-    renderer="colorManagement: true, physicallyCorrectLights"
-    vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: true" embedded>
+  <!--Escena-->
+  <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind;" 
+  vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <!--Cámara-->
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!--Modelos 3d-->
-      <a-assets>
-        
-      </a-assets>
-
-      <!--Cámara-->
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-      <a-entity mindar-image-target="targetIndex: 0">
-       <a-plane 
-        position="0 0 0" 
-        rotation="0 0 0" 
-        width="1" 
-        height="0.5" 
-        color="brown"
-        opacity="0.8"></a-plane>
-      </a-entity>
-
-    </a-scene>
+    <!--Modelos 3d-->
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-sphere position="0 0 0" radius="0.25" color="blue"></a-sphere>
+    </a-entity>
+  </a-scene>
 </body>
 </html>
