@@ -11,7 +11,7 @@
 </head>
 <body>
   <!--Escena-->
-  <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind; filterMinCF: 0.2; filterBeta: 5; warmupTolerance: 3; missTolerance: 5;" 
+  <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind; filterMinCF: 0.3; filterBeta: 10; warmupTolerance: 5; missTolerance: 10;" 
   color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"
   vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
 
@@ -26,7 +26,9 @@
     <!--Index de las banderas en el mind-->
     <a-entity mindar-image-target="targetIndex: 0">
       <!--Modelos 3D-->
-      <a-gltf-model src="#Mex-taco" position="0 0 0.1" scale="0.05 0.05 0.05" rotation="0 180 0" animation-mixer></a-gltf-model>
+      <a-entity position="0 0 0.1" scale="0.05 0.05 0.05" rotation="0 180 0">
+        <a-gltf-model src="#Mex-taco" animation-mixer></a-gltf-model>
+      </a-entity>
     </a-entity>
   </a-scene>
 </body>
