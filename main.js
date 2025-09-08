@@ -9,24 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	sceneEl.addEventListener('loaded', () => {
 	  arSystem = sceneEl.systems["mindar-image-system"];
   });
-
-  //Manejador del evento de clic en el botón de inicio
-  /*startButton.addEventListener('click', () => {
-  console.log("Comenzando la experiencia SoccerVAR...");
-
-  if (!arSystem) {
-    errorMessageEl.textContent = "El sistema AR aún no está listo. Espera unos segundos y vuelve a intentar.";
-    errorMessageEl.classList.remove('hidden');
-    return;
-  }
-
-  document.documentElement.requestFullscreen?.();
-
-  landingPage.classList.add('hidden');
-  arContainer.classList.remove('hidden');
-
-  arSystem.start();
-}); */
+  
   startButton.addEventListener('click', () => {
     console.log("Comenzando la experiencia SoccerVAR...");
 
