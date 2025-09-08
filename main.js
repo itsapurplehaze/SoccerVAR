@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const startButton = document.querySelector("#startBtn");
+  const startBtn = document.querySelector("#startBtn");
   const landingPage = document.querySelector("#landing-page");
   const arContainer = document.querySelector("#AR-container");
 	const sceneEl = document.querySelector('a-scene');
