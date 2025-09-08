@@ -10,10 +10,33 @@ document.addEventListener("DOMContentLoaded", function() {
 	  arSystem = sceneEl.systems["mindar-image-system"];
   });
 
-  // Manejador del evento de clic en el botón de inicio
+  //Manejador del evento de clic en el botón de inicio
+  /*startButton.addEventListener('click', () => {
+  console.log("Comenzando la experiencia SoccerVAR...");
+
+  if (!arSystem) {
+    errorMessageEl.textContent = "El sistema AR aún no está listo. Espera unos segundos y vuelve a intentar.";
+    errorMessageEl.classList.remove('hidden');
+    return;
+  }
+
+  document.documentElement.requestFullscreen?.();
+
+  landingPage.classList.add('hidden');
+  arContainer.classList.remove('hidden');
+
+  arSystem.start();
+}); */
   startButton.addEventListener('click', () => {
-      console.log("Comenzando la experiencia SoccerVAR...");
-      
+    console.log("Comenzando la experiencia SoccerVAR...");
+
+    // Inicia el motor de AR. Esto solicitará los permisos de la cámara.
+    if (!arSystem) {
+      errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
+      errorMessageEl.classList.remove('hidden');
+      return;
+    } else {
+      arSystem.start();
       // Solicitar pantalla completa para una experiencia más inmersiva (opcional pero recomendado)
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
@@ -21,14 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // Oculta la página de inicio y muestra el contenedor de AR
       landingPage.classList.add('hidden');
       arContainer.classList.remove('hidden');
-      // Inicia el motor de AR. Esto solicitará los permisos de la cámara.
-      if (arSystem) {
-        arSystem.start();
-      } else {
-        errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
-        errorMessageEl.classList.remove('hidden');
-        console.error("El sistema AR no está disponible en el evento o se negaron los permisos 'click'.");
-      }
+    }
   });
 
   /*Para que no tiemble el modelo
