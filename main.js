@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
       errorMessageEl.classList.remove('hidden');
       return;
     } try {
-      await arSystem.start();
+      arSystem.start();
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
       }
