@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const startBtn = document.querySelector("#startBtn");
+  const startButton = document.querySelector("#startButton");
   const landingPage = document.querySelector("#landing-page");
-  const arContainer = document.querySelector("#AR-container");
+  const arContainer = document.querySelector("#ar-container");
 	const sceneEl = document.querySelector('a-scene');
   const errorMessageEl = document.querySelector("#error-message");
 
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Manejador del evento de clic en el botón de inicio
-  startBtn.addEventListener('click', () => {
+  startButton.addEventListener('click', () => {
       console.log("Comenzando la experiencia SoccerVAR...");
       
       // Solicitar pantalla completa para una experiencia más inmersiva (opcional pero recomendado)
@@ -46,24 +46,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Oyentes de eventos
   sceneEl.addEventListener("arReady", (event) => {
-      console.log("MindAR está listo para la detección de targets.");
+    console.log("MindAR está listo para la detección de targets.");
   });
 
   sceneEl.addEventListener("arError", (event) => {
-      errorMessageEl.textContent = "Error al iniciar la cámara. Verifique los permisos del navegador o intente con otro dispositivo.";
-      errorMessageEl.classList.remove('hidden');
-      console.error("MindAR falló al iniciar:", event);
-      landingPage.classList.remove('hidden');
-      arContainer.classList.add('hidden');
+    errorMessageEl.textContent = "Error al iniciar la cámara. Verifique los permisos del navegador o intente con otro dispositivo.";
+    errorMessageEl.classList.remove('hidden');
+    console.error("MindAR falló al iniciar:", event);
+    landingPage.classList.remove('hidden');
+    arContainer.classList.add('hidden');
   });
 
   /*Detección de banderas*/
     const mexicoFlagTarget = document.querySelector("#Mexico-flag");
     mexicoFlagTarget.addEventListener("targetFound", () => {
-        console.log("¡Bandera de México!");
+      console.log("¡Bandera de México!");
     });
     mexicoFlagTarget.addEventListener("targetLost", () => {
-        console.log("Bandera perdida");
+      console.log("Bandera perdida");
     });
 }); 
 

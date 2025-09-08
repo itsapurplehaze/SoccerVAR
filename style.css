@@ -17,12 +17,12 @@ body {
     text-align: center;
     background-image: url("https://itsapurplehaze.github.io/SoccerVAR/assets/UXUI/landingwallpaper.png");
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     z-index: 10;
 }
 
-#AR-container {
+#ar-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -37,7 +37,7 @@ body {
     z-index: 10;
 }
 
-#AR-container {
+#ar-container {
     background-color: transparent; /*Fondo transparente para la vista de la cámara*/
     z-index: 1; /*Asegura que esté detrás de la landing page al inicio*/
 }
@@ -46,7 +46,7 @@ body {
     display: none;
 }
 
-#startBtn {
+#startButton {
     padding: 15px 30px;
     font-size: 1.2em;
     cursor: pointer;
@@ -57,7 +57,7 @@ body {
     margin-top: 20px;
 }
 
-#startBtn:hover {
+#startButton:hover {
     background-color: #ff0077;
 }
 
