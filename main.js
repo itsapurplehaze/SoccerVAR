@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	let arSystem;
 	sceneEl.addEventListener('loaded', () => {
 	  arSystem = sceneEl.systems["mindar-image-system"];
+    console.log("Sistema AR listo");
   });
   
   startButton.addEventListener('click', () => {
@@ -18,15 +19,16 @@ document.addEventListener("DOMContentLoaded", function() {
       errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
       errorMessageEl.classList.remove('hidden');
       return;
-    } else {
-      arSystem.start();
-      // Solicitar pantalla completa para una experiencia más inmersiva (opcional pero recomendado)
+    } try {
+      await arSystem.start();
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
       }
       // Oculta la página de inicio y muestra el contenedor de AR
       landingPage.classList.add('hidden');
       arContainer.classList.remove('hidden');
+    } catch (e) {
+      console.error("Error al iniciar AR:", e);
     }
   });
 
