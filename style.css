@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+/*Estilos de los dos divs*/
+#landing-page, #ar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url("https://itsapurplehaze.github.io/SoccerVAR/assets/UXUI/landingwallpaper.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    z-index: 10;
+}
+
+#ar-container {
+    background-color: transparent; /*Fondo transparente para la vista de la cámara*/
+    z-index: 1; /*Asegura que esté detrás de la landing page al inicio*/
+}
+
+.hidden {
+    display: none;
+}
+
+#startButton {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: whitesmoke;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+#startButton:hover {
+    background-color: #ff0077;
+}
+
+#error-message {
+    color: red;
+    background-color: whitesmoke;
+    margin-top: 10px;
+}

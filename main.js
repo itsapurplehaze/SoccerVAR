@@ -1,48 +1,90 @@
-/*Para que no tiemble el modelo*/
-AFRAME.registerComponent('smooth-follow', {
-  schema: {
-    lerpFactor: {type: 'number', default: 0.1}
-  },
-  tick: function () {
-    const target = this.el.parentEl.object3D;
-    const current = this.el.object3D;
-
-    current.position.lerp(target.position, this.data.lerpFactor);
-    current.quaternion.slerp(target.quaternion, this.data.lerpFactor);
-  }
-});
-
 document.addEventListener("DOMContentLoaded", function() {
+  const startButton = document.querySelector("#startBtn");
+  const landingPage = document.querySelector("#landing-page");
+  const arContainer = document.querySelector("#AR-container");
 	const sceneEl = document.querySelector('a-scene');
+  const errorMessageEl = document.querySelector("#error-message");
+
 	let arSystem;
-
-	sceneEl.addEventListener('loaded', function () {
-	  const arSystem = sceneEl.systems["mindar-image-system"];
-    const target = document.querySelector("#Mexico-flag");
-
-    /*Detecta bandera México */
-    target.addEventListener("targetFound", () => {
-      console.log("¡Bandera de México!");
-    });
-    target.addEventListener("targetLost", () => {
-      console.log("Bandera perdida");
-    });
+	sceneEl.addEventListener('loaded', () => {
+	  arSystem = sceneEl.systems["mindar-image-system"];
   });
+
+  // Manejador del evento de clic en el botón de inicio
+  startBtn.addEventListener('click', () => {
+      console.log("Comenzando la experiencia SoccerVAR...");
+      
+      // Solicitar pantalla completa para una experiencia más inmersiva (opcional pero recomendado)
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+      // Oculta la página de inicio y muestra el contenedor de AR
+      landingPage.classList.add('hidden');
+      arContainer.classList.remove('hidden');
+      // Inicia el motor de AR. Esto solicitará los permisos de la cámara.
+      if (arSystem) {
+        arSystem.start();
+      } else {
+        errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
+        errorMessageEl.classList.remove('hidden');
+        console.error("El sistema AR no está disponible en el evento o se negaron los permisos 'click'.");
+      }
+  });
+
+  /*Para que no tiemble el modelo
+  AFRAME.registerComponent('smooth-follow', {
+    schema: {
+      lerpFactor: {type: 'number', default: 0.1}
+    },
+    tick: function () {
+      const target = this.el.parentEl.object3D;
+      const current = this.el.object3D;
+      current.position.lerp(target.position, this.data.lerpFactor);
+      current.quaternion.slerp(target.quaternion, this.data.lerpFactor);
+    }
+  });*/
+
+  // Oyentes de eventos
+  sceneEl.addEventListener("arReady", (event) => {
+      console.log("MindAR está listo para la detección de targets.");
+  });
+
+  sceneEl.addEventListener("arError", (event) => {
+      errorMessageEl.textContent = "Error al iniciar la cámara. Verifique los permisos del navegador o intente con otro dispositivo.";
+      errorMessageEl.classList.remove('hidden');
+      console.error("MindAR falló al iniciar:", event);
+      landingPage.classList.remove('hidden');
+      arContainer.classList.add('hidden');
+  });
+
+  /*Detección de banderas*/
+    const mexicoFlagTarget = document.querySelector("#Mexico-flag");
+    mexicoFlagTarget.addEventListener("targetFound", () => {
+        console.log("¡Bandera de México!");
+    });
+    mexicoFlagTarget.addEventListener("targetLost", () => {
+        console.log("Bandera perdida");
+    });
 }); 
+
+
+
+
+
+
+
+
+
 
 /*TODO VA DENTRO addEventListener si decido agregarlo
 
 	const exampleTarget = document.querySelector('#example-target');
 	const examplePlane = document.querySelector('#example-plane');
-	const startButton = document.querySelector("#example-start-button");
 	const stopButton = document.querySelector("#example-stop-button");
 	const pauseButton = document.querySelector("#example-pause-button");
 	const pauseKeepVideoButton = document.querySelector("#example-pause-keep-video-button");
 	const unpauseButton = document.querySelector("#example-unpause-button");
-	startButton.addEventListener('click', () => {
-	  console.log("start");
-	  arSystem.start(); // start AR 
-	});
+
 	stopButton.addEventListener('click', () => {
 	  arSystem.stop(); // stop AR 
 	});

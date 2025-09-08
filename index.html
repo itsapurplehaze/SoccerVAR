@@ -10,28 +10,35 @@
     <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-  <!--Escena-->
-  <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind; filterMinCF: 0.3; filterBeta: 10; warmupTolerance: 5; missTolerance: 10;" 
-  color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"
-  vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+  <div id="landing-page">
+    <h1>SoccerVAR</h1>
+    <p>Version Mundial 2026</p>
+    <button id="startBtn">INICIAR</button>
+    <p id="error-message" class="hidden"></p>
+  </div>
 
-    <!--Cámara-->
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+  <div id="AR-container" class="hidden">
+    <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind; autoStart: false; filterMinCF: 0.1; filterBeta: 100; warmupTolerance: 5; missTolerance: 10;" 
+    color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
 
-    <!--Carga de modelos y recursos-->
-    <a-assets>
-      <a-asset-item id="Mex-taco" src="https://itsapurplehaze.github.io/SoccerVAR/assets/taco.glb"></a-asset-item>
-    </a-assets>
+      <!--Cámara-->
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <!--Index de las banderas en el .mind-->
-    <a-entity id="Mexico-flag" mindar-image-target="targetIndex: 0">
-      <!--Modelos 3D-->
-      <a-entity position="0 0 0.1" scale="0.03 0.03 0.03" rotation="0 180 0" smooth-follow="lerpFactor: 0.1">
-        <a-gltf-model src="#Mex-taco" animation-mixer></a-gltf-model>
+      <!--Carga de modelos y recursos-->
+      <a-assets>
+        <a-asset-item id="Mex-taco" src="https://itsapurplehaze.github.io/SoccerVAR/assets/taco.glb"></a-asset-item>
+      </a-assets>
+
+      <!--Index de las banderas en el .mind-->
+      <!--México-->
+      <a-entity id="Mexico-flag" mindar-image-target="targetIndex: 0">
+        <a-entity position="0 0 0.1" scale="0.04 0.04 0.04" rotation="0 180 0">
+          <a-gltf-model src="#Mex-taco" animation-mixer></a-gltf-model>
+        </a-entity>
       </a-entity>
-    </a-entity>
-  </a-scene>
-
+    </a-scene>
+  </div>
   <script src="./main.js"></script>
 </body>
 </html>
