@@ -28,8 +28,7 @@ body {
 }
 
 .hidden {
-    visibility: hidden;
-    opacity: 0;
+    display: none;
 }
 
 #startButton {
