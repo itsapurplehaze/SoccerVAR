@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
     errorMessageEl.textContent = "Error al iniciar la cámara. Verifique los permisos del navegador o intente con otro dispositivo.";
     errorMessageEl.classList.remove('hidden');
     console.error("MindAR falló al iniciar:", event);
-    landingPage.style.display = 'none';
-    arContainer.classList.add('visible');
+    landingPage.classList.add('hidden');
+    arContainer.classList.remove('hidden');
   });
   
   startButton.addEventListener('click', async () => {
