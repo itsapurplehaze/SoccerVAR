@@ -8,18 +8,20 @@ document.addEventListener("DOMContentLoaded", function() {
 	let arSystem;
   let arReady = false;
 
-	sceneEl.addEventListener("arReady", () => {
-	  arSystem = sceneEl.systems["mindar-image-system"];
-    arReady = true;
-    console.log("MindAR está listo");
-  });
+  sceneEl.addEventListener("loaded", () => {
+    sceneEl.addEventListener("arReady", () => {
+	    arSystem = sceneEl.systems["mindar-image-system"];
+      arReady = true;
+      console.log("MindAR está listo");
+    });
 
-  sceneEl.addEventListener("arError", (event) => {
-    errorMessageEl.textContent = "Error al iniciar la cámara. Verifique los permisos del navegador o intente con otro dispositivo.";
-    errorMessageEl.classList.remove('hidden');
-    console.error("MindAR falló al iniciar:", event);
-    landingPage.classList.remove('hidden');
-    arContainer.classList.add('hidden');
+    sceneEl.addEventListener("arError", (event) => {
+      errorMessageEl.textContent = "Error al iniciar la cámara. Verifique los permisos del navegador o intente con otro dispositivo.";
+      errorMessageEl.classList.remove('hidden');
+      console.error("MindAR falló al iniciar:", event);
+      landingPage.classList.remove('hidden');
+      arContainer.classList.add('active');
+    });
   });
   
   startButton.addEventListener('click', async () => {
@@ -27,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Inicia el motor de AR. Esto solicitará los permisos de la cámara.
     if (!arReady || !arSystem) {
-    errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
+      errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
       errorMessageEl.classList.remove('hidden');
       return;
     } try {
