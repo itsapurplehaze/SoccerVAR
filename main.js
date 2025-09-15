@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
   startButton.addEventListener('click', async () => {
     console.log("Comenzando la experiencia SoccerVAR...");
-
     // Inicia el motor de AR. Esto solicitará los permisos de la cámara.
     if (!arReady || !arSystem) {
       errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     try {
       await arSystem.start();
       landingPage.classList.add('hidden');
-      arContainer.classList.remove('hidden');
+      arContainer.classList.add('visible');
     } catch (e) {
       console.error("Error al iniciar AR:", e);
       errorMessageEl.textContent = "Error al iniciar AR. Revise los permisos de cámara."

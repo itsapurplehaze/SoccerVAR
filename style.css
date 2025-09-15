@@ -30,12 +30,17 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1; /*Asegura que esté detrás de la landing page al inicio*/
+    z-index: 0; /*Asegura que esté detrás de la landing page al inicio*/
+    transition: z-index 0.3s;
 }
 
 .hidden {
     display: none;
     pointer-events: none;
+}
+
+#ar-container .visible {
+    z-index: 20;
 }
 
 #startButton {
