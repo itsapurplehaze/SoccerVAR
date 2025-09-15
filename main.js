@@ -2,39 +2,16 @@ document.addEventListener("DOMContentLoaded", function() {
   const startButton = document.querySelector("#startButton");
   const landingPage = document.querySelector("#landing-page");
   const arContainer = document.querySelector("#ar-container");
-	const sceneEl = document.querySelector('a-scene');
+	const sceneEl = document.querySelector("a-scene");
   const errorMessageEl = document.querySelector("#error-message");
 
 	let arSystem;
-	sceneEl.addEventListener('loaded', () => {
+  let arReady = false;
+
+	sceneEl.addEventListener("arReady", () => {
 	  arSystem = sceneEl.systems["mindar-image-system"];
-    console.log("Sistema AR listo");
-  });
-  
-  startButton.addEventListener('click', () => {
-    console.log("Comenzando la experiencia SoccerVAR...");
-
-    // Inicia el motor de AR. Esto solicitará los permisos de la cámara.
-    if (!arSystem) {
-      errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
-      errorMessageEl.classList.remove('hidden');
-      return;
-    } try {
-      arSystem.start();
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-      }
-      // Oculta la página de inicio y muestra el contenedor de AR
-      landingPage.classList.add('hidden');
-      arContainer.classList.remove('hidden');
-    } catch (e) {
-      console.error("Error al iniciar AR:", e);
-    }
-  });
-
-  // Oyentes de eventos
-  sceneEl.addEventListener("arReady", (event) => {
-    console.log("MindAR está listo para la detección de targets.");
+    arReady = true;
+    console.log("MindAR está listo");
   });
 
   sceneEl.addEventListener("arError", (event) => {
@@ -43,6 +20,28 @@ document.addEventListener("DOMContentLoaded", function() {
     console.error("MindAR falló al iniciar:", event);
     landingPage.classList.remove('hidden');
     arContainer.classList.add('hidden');
+  });
+  
+  startButton.addEventListener('click', async () => {
+    console.log("Comenzando la experiencia SoccerVAR...");
+
+    // Inicia el motor de AR. Esto solicitará los permisos de la cámara.
+    if (!arReady || !arSystem) {
+    errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
+      errorMessageEl.classList.remove('hidden');
+      return;
+    } try {
+      await arSystem.start();
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+      landingPage.classList.add('hidden');
+      arContainer.classList.remove('hidden');
+    } catch (e) {
+      console.error("Error al iniciar AR:", e);
+      errorMessageEl.textContent = "Error al iniciar AR. Revise los permisos de cámara."
+      errorMessageEl.classList.remove("hidden");
+    }
   });
 
   /*Detección de banderas*/
