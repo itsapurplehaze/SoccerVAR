@@ -9,23 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
   let arReady = false;
 
   sceneEl.addEventListener("arReady", () => {
-    setTimeout(() => {
-      if (sceneEl.systems["mindar-image-system"]) {
-        arSystem = sceneEl.systems["mindar-image-system"];
-        arReady = true;
-        startButton.disabled = false;
-        startButton.textContent = "INICIAR";
-        console.log("MindAR forzado a iniciar");
-      } else {
-        console.warn("MindAR no está disponible aún");
-      }
-    }, 3000);
-	  /*arSystem = sceneEl.systems["mindar-image-system"];
+	  arSystem = sceneEl.systems["mindar-image-system"];
     arReady = true;
-    console.log("MindAR está listo");
-
     startButton.disabled = false;
-    startButton.textContent = "INICIAR";*/
+    startButton.textContent = "INICIAR";
+    console.log("MindAR está listo");
   });
 
   sceneEl.addEventListener("arError", (event) => {
