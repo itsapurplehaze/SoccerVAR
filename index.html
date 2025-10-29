@@ -13,12 +13,12 @@
     <h1>SoccerVAR</h1>
     <p>Version Mundial 2026</p>
     <button id="startButton" disabled>SoccerVAR</button>
-    <button id="helpButton" onclick="window.location.href= 'https://itsapurplehaze.github.io/SoccerVAR/help.html'">?</button>
+    <button id="helpButton" onclick="window.location.href= './help.html'">?</button>
     <p id="error-message" class="hidden"></p>
   </div>
 
   <div id="ar-container" class="hidden">
-    <a-scene mindar-image="imageTargetSrc: https://itsapurplehaze.github.io/SoccerVAR/assets/targets.mind; filterMinCF: 0.1; filterBeta: 100; warmupTolerance: 5; missTolerance: 10;" 
+    <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind; filterMinCF: 0.1; filterBeta: 100; warmupTolerance: 5; missTolerance: 10;" 
     color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"
     vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
 
@@ -27,7 +27,7 @@
 
       <!--Carga de modelos y recursos-->
       <a-assets>
-        <a-asset-item id="Mex-taco" src="https://itsapurplehaze.github.io/SoccerVAR/assets/taco.glb"></a-asset-item>
+        <a-asset-item id="Mex-taco" src="./assets/taco.glb"></a-asset-item>
       </a-assets>
 
       <!--Index de las banderas en el .mind-->
