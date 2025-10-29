@@ -5,51 +5,41 @@ document.addEventListener("DOMContentLoaded", function() {
   const sceneEl = document.querySelector("a-scene");
   const errorMessageEl = document.querySelector("#error-message");
 
-  let arSystem;
-  let arReady = false;
-
-  sceneEl.addEventListener("arReady", () => {
-    arSystem = sceneEl.systems["mindar-image-system"];
-    arReady = true;
-    startButton.disabled = false;
-    startButton.textContent = "INICIAR";
-    console.log("MindAR está listo");
-  });
-
-  sceneEl.addEventListener("arError", (event) => {
-    errorMessageEl.textContent = "Error al iniciar la cámara. Verifique los permisos del navegador o intente con otro dispositivo.";
-    errorMessageEl.classList.remove('hidden');
-    console.error("MindAR falló al iniciar:", event);
-  });
-  
   startButton.addEventListener('click', async () => {
-    console.log("Comenzando la experiencia SoccerVAR...");
-    
-    if (!arReady || !arSystem) {
-      errorMessageEl.textContent = "Error: El sistema AR presenta un problema. Por favor, recargue la página.";
-      errorMessageEl.classList.remove('hidden');
-      return;
-    } 
-    
+    //Cambia el texto del botón y lo deshabilita para evitar múltiples clics.
+    startButton.textContent = "INICIAR...";
+    startButton.disabled = true;
+
+    //Oculta la página de inicio y muestra el contenedor de AR.
+    landingPage.classList.add('hidden');
+    arContainer.classList.remove('hidden');
+
     try {
-      await arSystem.start();
-      // CORRECCIÓN AQUÍ: Usamos la clase .hidden para manejar la visibilidad
-      landingPage.classList.add('hidden');
-      arContainer.classList.remove('hidden');
+      //permisos de cámara.
+      const arSystem = sceneEl.systems["mindar-image-system"];
+      await arSystem.start(); 
+      console.log("Sistema AR iniciado por el usuario.");
 
     } catch (e) {
+      //Si usuario niega permisos o hay error
       console.error("Error al iniciar AR:", e);
-      errorMessageEl.textContent = "Error al iniciar AR. Revise los permisos de cámara."
+      errorMessageEl.textContent = "Error al iniciar AR. Revisa los permisos de cámara y recarga la página.";
       errorMessageEl.classList.remove("hidden");
+      
+      //Opcional: Volver a mostrar la landing page si falla
+      landingPage.classList.remove('hidden');
+      arContainer.classList.add('hidden');
+      startButton.textContent = "Reintentar";
+      startButton.disabled = false;
     }
   });
 
-  /*Detección de banderas*/
-    const mexicoFlagTarget = document.querySelector("#Mexico-flag");
-    mexicoFlagTarget.addEventListener("targetFound", () => {
-      console.log("¡Bandera de México!");
-    });
-    mexicoFlagTarget.addEventListener("targetLost", () => {
-      console.log("Bandera perdida");
-    });
+  /* Detección de banderas*/
+  const mexicoFlagTarget = document.querySelector("#Mexico-flag");
+  mexicoFlagTarget.addEventListener("targetFound", () => {
+    console.log("¡Bandera de México!");
+  });
+  mexicoFlagTarget.addEventListener("targetLost", () => {
+    console.log("Bandera perdida");
+  });
 });
