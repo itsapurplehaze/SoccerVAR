@@ -198,7 +198,7 @@ button:hover::before {
     }
     button {
         font-size: 1rem;
-        min-height: 54px;
+        min-height: 45px;
         border-radius: 16px;
         box-shadow: 
             0 12px 30px rgba(0,0,0,0.6),
