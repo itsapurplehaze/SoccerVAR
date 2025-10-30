@@ -168,21 +168,31 @@ button:hover::before {
 /*RESPONSIVIDAD*/
 /* Desktop*/
 @media (min-width: 1025px) {
+    #landing-page {
+        justify-content: flex-start;
+        align-items: center;
+        background-size: contain;          
+        background-position: top center;
+        background-color: #000;
+        padding-top: 40px;
+    }
     .landing-content {
         max-width: 700px;             
-        align-items: flex-start;       
-        text-align: left;
+        align-items: center;       
+        text-align: center;
     }   
     .button-group {
         flex-direction: row;          
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: center;
         gap: 15px;
+        margin-top: 340px;
     }
     button {
         width: auto;
         min-width: 180px;
         font-size: 1rem;
+        min-height: 52px;
   }
 }
 
@@ -191,7 +201,9 @@ button:hover::before {
     #landing-page {
         align-items: center;
         justify-content: flex-end;
-        padding-bottom: 12vh;
+        padding-bottom: 6vh;
+        background-size: cover;          
+        background-position: center;
     }
     .landing-content {
         max-width: 100%;
@@ -199,10 +211,13 @@ button:hover::before {
     }
     .button-group {
         width: 100%;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 40px;
     }
     button {
         font-size: 1rem;
-        min-height: 45px;
+        min-height: 54px;
         border-radius: 16px;
         box-shadow: 
             0 12px 30px rgba(0,0,0,0.6),
