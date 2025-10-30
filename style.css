@@ -172,7 +172,7 @@ button:hover::before {
         justify-content: flex-start;
         align-items: center;
         padding-top: 0;
-        background-size: cover;       
+        background-size: 80% auto;       
         background-position: center center;
         background-color: #000; 
         background-repeat: no-repeat;
