@@ -1,16 +1,24 @@
+/*
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* quita flash azul en iOS 
+}*/
 body {
     margin: 0;
     overflow: hidden;
     background: transparent !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+    color: #fff;
 }
 
 /*Estilos de los dos divs*/
 #landing-page{
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
-    height: 100%;
+    max-width: 315px;
+    gap: 11px;
+    height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,8 +31,107 @@ body {
     z-index: 10;
 }
 
+
+
+button {
+    position: relative;
+    width: 100%;
+    min-height: 52px;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 14px;
+    color: #fff;
+    background: linear-gradient(135deg, #007bff, #00c8ff);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.3);
+    overflow: hidden;
+    line-height: 1.2;
+}
+
+/*Efectos BOTONES: hover*/
+button:hover {
+    background: linear-gradient(135deg, #ff0077, #ff66c4);
+    box-shadow: 
+        0 0 20px rgba(255, 0, 119, 0.6), 
+        0 0 40px rgba(255, 0, 119, 0.3);
+    transform: scale(1.05);
+}
+
+/*: clic*/
+button:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 10px rgba(255, 0, 119, 0.4);
+}
+
+/*: brillo*/
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: skewX(-25deg);
+    transition: left 0.7s ease;
+    pointer-events: none;
+}
+
+button:hover::before {
+    left: 130%;
+}
+
+#startButton {
+    background: linear-gradient(135deg, #00c5c8, #00e6c7);
+    box-shadow: 0 0 15px rgba(0, 251, 255, 0.3);
+}
+
+#startButton:hover {
+  background: linear-gradient(135deg, #00e6d7, #66ffe6);
+  box-shadow: 
+    0 0 25px rgba(0, 251, 255, 0.6), 
+    0 0 45px rgba(0, 251, 255, 0.3);
+}
+
+#error-message {
+    color: red;
+    background-color: rgba(245, 245, 245, 0.9); 
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+#trivButton {
+    background: linear-gradient(135deg, #8800ff, #9c07ff);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+#trivButton:hover {
+    background: linear-gradient(135deg,  #9c07ff, #9b4fff);
+    box-shadow: 0 0 25px rgba(255, 193, 7, 0.6), 0 0 45px rgba(255, 193, 7, 0.3);
+}
+
+#helpButton {
+    background: linear-gradient(135deg, #2196f3, #03a9f4);
+    box-shadow: 0 0 15px rgba(3, 169, 244, 0.3);
+}
+
+#helpButton:hover {
+    background: linear-gradient(135deg, #03a9f4, #29b6f6);
+    box-shadow: 0 0 25px rgba(3, 169, 244, 0.6), 0 0 45px rgba(3, 169, 244, 0.3);
+}
+
+
+
 #ar-container, a-scene {
-    background-color: transparent; /*Fondo transparente para la vista de la cámara*/
+    background-color: transparent;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -37,23 +144,37 @@ body {
     display: none !important;
 }
 
-#startButton {
-    padding: 15px 30px;
-    font-size: 1.2em;
-    cursor: pointer;
-    border: none;
-    background-color: #007bff;
-    color: whitesmoke;
-    border-radius: 8px;
-    margin-top: 20px;
+
+
+/*RESPONSIVIDAD*/
+/* Desktop*/
+@media (min-width: 1025px) {
+    #landing-page {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 600px;
+    }   
+    button {
+        width: auto;
+        min-width: 180px;
+        font-size: 1.1rem;
+    }
 }
 
-#startButton:hover {
-    background-color: #ff0077;
-}
-
-#error-message {
-    color: red;
-    background-color: whitesmoke;
-    margin-top: 10px;
+/* Celulares*/
+@media (max-width: 430px) {
+    #landing-page {
+        justify-content: flex-end;                       
+        width: 100%;
+        max-width: 90%;
+        gap: 10px;
+    }   
+    button {
+        font-size: 1rem;
+        min-height: 54px;
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.6),
+                    0 0 20px rgba(0, 200, 255, 0.4);
+    }
 }
