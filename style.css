@@ -129,7 +129,7 @@ button:hover::before {
 }
 
 #trivButton:hover {
-    background: linear-gradient(135deg,  #9c07ff72, #9b4fff83);
+    background: linear-gradient(135deg,  #9c07ff78, #9b4fff86);
     box-shadow: 
         0 0 25px rgba(255, 7, 251, 0.479), 
         0 0 45px rgba(205, 7, 255, 0.279);
@@ -141,7 +141,7 @@ button:hover::before {
 }
 
 #helpButton:hover {
-    background: linear-gradient(135deg, #03a8f473, #29b5f671);
+    background: linear-gradient(135deg, #03a8f484, #29b5f671);
     box-shadow: 
         0 0 25px rgba(3, 168, 244, 0.479), 
         0 0 45px rgba(3, 169, 244, 0.279);
