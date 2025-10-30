@@ -129,8 +129,10 @@ button:hover::before {
 }
 
 #trivButton:hover {
-    background: linear-gradient(135deg,  #9c07ff, #9b4fff);
-    box-shadow: 0 0 25px rgba(255, 193, 7, 0.6), 0 0 45px rgba(255, 193, 7, 0.3);
+    background: linear-gradient(135deg,  #9c07ff7b, #9b4fff83);
+    box-shadow: 
+        0 0 25px rgba(255, 193, 7, 0.479), 
+        0 0 45px rgba(255, 193, 7, 0.279);
 }
 
 #helpButton {
@@ -139,8 +141,10 @@ button:hover::before {
 }
 
 #helpButton:hover {
-    background: linear-gradient(135deg, #03a9f4, #29b6f6);
-    box-shadow: 0 0 25px rgba(3, 169, 244, 0.6), 0 0 45px rgba(3, 169, 244, 0.3);
+    background: linear-gradient(135deg, #03a8f45b, #29b5f654);
+    box-shadow: 
+        0 0 25px rgba(3, 168, 244, 0.255), 
+        0 0 45px rgba(3, 169, 244, 0.125);
 }
 
 
