@@ -108,8 +108,8 @@ button:hover::before {
 #startButton:hover {
   background: linear-gradient(135deg, #00e6d7, #66ffe6);
   box-shadow: 
-    0 0 25px rgba(0, 251, 255, 0.6), 
-    0 0 45px rgba(0, 251, 255, 0.3);
+    0 0 25px rgba(0, 251, 255, 0.479), 
+    0 0 45px rgba(0, 251, 255, 0.279);
 }
 
 #error-message {
