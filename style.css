@@ -415,7 +415,7 @@ button:hover::before{
         align-items: center;
         justify-content: flex-end;
         padding-bottom: 6vh;
-        background-size: cover;          
+        background-size: 50% auto;          
         background-position: center;
     }
     .landing-content {
