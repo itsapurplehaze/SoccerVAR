@@ -376,7 +376,6 @@ button:hover::before{
         background-color: #0b1302fa; 
         background-repeat: no-repeat;
     }
-
     .landing-content {
         max-width: 800px;
         width: 100%;
@@ -387,7 +386,6 @@ button:hover::before{
         align-items: center;
         text-align: center;
     }
-
     .button-group {
         position: absolute;
         left: 53%;
@@ -399,7 +397,6 @@ button:hover::before{
         gap: 15px;
         top: 20vh; 
     }
-
     button {
         width: auto;
         min-width: 180px;
@@ -408,9 +405,42 @@ button:hover::before{
     }
 }
 
-
 /* Celulares*/
 @media (max-width: 480px) {
+    #landing-page {
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 16px 7vh;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-size: contain;
+        background-color: #0b1302fa;
+    }
+    .landing-content {
+        width: 100%;
+        max-width: 420px;
+        gap: 14px;
+        position: relative;
+        z-index: 20;
+    }
+    .button-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 24px;
+    }
+    button {
+        font-size: 1rem;
+        min-height: 54px;
+        border-radius: 16px;
+        box-shadow: 
+            0 12px 30px rgba(0,0,0,0.6),
+            0 0 20px rgba(0, 200, 255, 0.4);
+    }
+}
+
+/*@media (max-width: 480px) {
     #landing-page {
         align-items: center;
         justify-content: flex-end;
@@ -437,3 +467,4 @@ button:hover::before{
             0 0 20px rgba(0, 200, 255, 0.4);
     }
 }
+*/
