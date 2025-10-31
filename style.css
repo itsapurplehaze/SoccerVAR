@@ -413,7 +413,7 @@ button:hover::before{
         padding: 0 16px 7vh;
         background-repeat: no-repeat;
         background-position: center bottom;
-        background-size: contain;
+        background-size: cover;
         background-color: #0b1302fa;
     }
     .landing-content {
