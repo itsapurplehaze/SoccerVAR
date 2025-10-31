@@ -411,9 +411,8 @@ button:hover::before{
         align-items: center;
         justify-content: flex-end;
         padding: 0 16px 7vh;
-        background-repeat: no-repeat;
         background-position: center;
-        background-size: cover;
+        background-size: contain;
         background-color: #0b1302fa;
     }
     .landing-content {
