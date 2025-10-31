@@ -389,7 +389,7 @@ button:hover::before{
         justify-content: flex-end;
         padding: 0 16px 7vh;
         background-position: center;
-        background-size: cover;
+        background-size: contain;
         background-color: #0b1302fa;
     }
     .landing-content {
@@ -415,32 +415,3 @@ button:hover::before{
             0 0 20px rgba(0, 200, 255, 0.4);
     }
 }
-
-/*@media (max-width: 480px) {
-    #landing-page {
-        align-items: center;
-        justify-content: flex-end;
-        padding-bottom: 6vh;
-        background-size: 50% auto;          
-        background-position: center;
-    }
-    .landing-content {
-        max-width: 100%;
-        gap: 14px;
-    }
-    .button-group {
-        width: 100%;
-        flex-direction: column;
-        gap: 12px;
-        margin-top: 40px;
-    }
-    button {
-        font-size: 1rem;
-        min-height: 54px;
-        border-radius: 16px;
-        box-shadow: 
-            0 12px 30px rgba(0,0,0,0.6),
-            0 0 20px rgba(0, 200, 255, 0.4);
-    }
-}
-*/
