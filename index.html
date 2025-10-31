@@ -14,7 +14,7 @@
       <div class="button-group">
         <button id="startButton">START</button>
         <button id="trivButton">TRIVIA</button>
-        <button id="helpButton" onclick="window.location.href= './help.html'">HELP</button>
+        <button id="helpButton">HELP</button>
       </div>
       <p id="error-message" class="hidden"></p>
     </div>
@@ -40,6 +40,37 @@
         </a-entity>
       </a-entity>
     </a-scene>
+  </div>
+
+  <div id="help-modal" class="modal hidden">
+    <div class="modal-dialog">
+      <h2 class="modal-title">Aprendiendo a usar SoccerVAR</h2>
+
+      <ol class="modal-list">
+        <p class="modal-note">
+          Debes ACEPTAR los permisos de cámara para poder usar nuestra aplicación.
+        </p>
+        <li>
+          <strong>START</strong>
+          <ol class="modal-sublist">
+            <li class="steps">Entrando en la aplicación se verá un recuadro en el cual podrás enfocar la bandera que desees.</li>
+            <li class="steps">Una vez enfocada te aparecerá un modelo y diferentes botones.</li>
+            <li class="steps">Con cada botón podrás hacer una acción diferente.</li>
+            <li class="steps">Ahora, Give it a try!</li>
+          </ol>
+           
+          <strong>TRIVIA</strong>
+          <ol class="modal-sublist">
+            <li class="steps">En esta mini trivia podrás aprender sobre los diferentes países del Mundial.</li>
+            <li class="steps">Te saldrá una pregunta con 4 respuestas diferentes.</li>
+            <li class="steps">De las cuales solo puedes elegir 1.</li>
+            <li class="steps">Si tienes 3 errores habrás perdido😢.</li>
+            <li class="steps">Contesta correctamente todas las preguntas que puedas.</li>
+            <li class="steps">Y ¡DIVIÉRTETE APRENDIENDO!</li>
+          </ol>
+        </li> 
+      </ol>
+    </div>
   </div>
 
   <script type="module" src="./main.js"></script>

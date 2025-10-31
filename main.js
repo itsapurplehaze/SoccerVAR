@@ -87,10 +87,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Eventos de target
+  //Eventos de target
   const mexicoFlagTarget = document.querySelector("#Mexico-flag");
   if (mexicoFlagTarget) {
     mexicoFlagTarget.addEventListener("targetFound", () => console.log("¡Bandera de México!"));
     mexicoFlagTarget.addEventListener("targetLost",  () => console.log("Bandera perdida"));
   }
+
+  //Modal de ayuda
+  const helpButton  = document.querySelector("#helpButton");
+  const helpModal   = document.querySelector("#help-modal");
+
+  const openHelp = () => {
+    helpModal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeHelp = () => {
+    helpModal.classList.add("hidden");
+    document.body.style.overflow = "";
+  };
+
+  helpButton.addEventListener("click", openHelp);
+
+  //cerrar tocando fuera del cuadro
+  helpModal.addEventListener("click", (e) => {
+    if (e.target === helpModal) {
+      closeHelp();
+    }
+  });
+
+  //cerrar ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !helpModal.classList.contains("hidden")) {
+      closeHelp();
+    }
+  });
 });
