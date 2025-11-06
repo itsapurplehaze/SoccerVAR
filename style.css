@@ -39,6 +39,7 @@ body{
     text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
 
+/*botones*/
 .button-group{
     width: 100%;
     display: flex;
