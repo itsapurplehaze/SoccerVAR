@@ -256,14 +256,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    //Cerrar con X
-    if (closeBtn && trivModalEl) {
-      closeBtn.addEventListener("click", () => {
-        trivModalEl.classList.add("triv-hidden");
-        document.body.style.overflow = "";
-      });
-    }
-
     //Cerrar con el fondo
     if (trivModalEl) {
       trivModalEl.addEventListener("click", (e) => {

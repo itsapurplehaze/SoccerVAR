@@ -378,18 +378,6 @@ button:hover::before{
     text-align: center;
 }
 
-.triv-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: 0;
-    color: #fd0050f6;
-    font-size: 18px;
-    line-height: 1;
-    cursor: pointer;
-}
-
 .triv-screen {
     display: flex;
     flex-direction: column;
@@ -495,6 +483,66 @@ button:hover::before{
     transform: scale(0.98);
 }
 
+.triv-main-btn:hover{
+    transform: scale(1.05);
+    background: radial-gradient(circle at 20% 20%, #b3ff00 0%, #00bbff 60%);
+    box-shadow: 0 0 20px rgba(66, 252, 233, 0.6), 
+}
+/*Responsividad triv*/
+@media (max-width: 480px) {
+  #triv-modal {
+    padding: 12px;
+    align-items: flex-end;
+    min-height: 100dvh;
+  }
+  #triv-modal .triv-dialog {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: 20px 20px 0 0;
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(20, 20, 20, 0.9);
+    max-height: 88dvh;
+    overflow: auto;
+  }
+  .triv-title {
+    font-size: 1.15rem;
+  }
+  .triv-rules {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .triv-stats {
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    padding: 6px 0;
+    background: linear-gradient(rgba(20, 20, 20, 0.95), rgba(20, 20, 20, 0.9));
+    z-index: 1;
+  }
+  .triv-question-text {
+    font-size: 1rem;
+    line-height: 1.35;
+    word-wrap: break-word;
+  }
+  .triv-options {
+    gap: 12px;
+  }
+  .triv-option-btn {
+    min-height: 48px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    border-radius: 12px;
+  }
+  .triv-main-btn {
+    width: 100%;
+    min-height: 52px;
+    font-size: 1rem;
+    border-radius: 14px;
+  }
+}
+
 
 
 #ar-container, a-scene {
@@ -560,7 +608,7 @@ button:hover::before{
         justify-content: flex-end;
         padding: 0 16px 7vh;
         background-position: center;
-        background-size: contain;
+        background-size: contain top;
         background-color: #0b1302fa;
     }
     .landing-content {
