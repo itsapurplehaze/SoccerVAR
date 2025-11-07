@@ -39,29 +39,20 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       //1) Verifica HTTPS/localhost
       const isSecure = window.isSecureContext || location.protocol === "https:" || location.hostname === "localhost";
-      if (!isSecure) {
-        throw Object.assign(new Error("La cámara requiere HTTPS o localhost."), { code: "INSECURE_CONTEXT" });
-      }
+      if (!isSecure) throw Object.assign(new Error("La cámara requiere HTTPS o localhost."), { code: "INSECURE_CONTEXT" });
 
       //2) Espera a que A-Frame esté listo
       await waitSceneLoaded();
 
-      //3) Sonda de permisos de cámara
-      await probeCamera();
-
-      //4) Arranca MindAR
+      //3) Arranca MindAR
       const arSystem = sceneEl.systems["mindar-image-system"];
-      if (!arSystem || !arSystem.start) {
-        throw Object.assign(new Error("MindAR no está inicializado en la escena."), { code: "AR_UNAVAILABLE" });
-      }
+      if (!arSystem || !arSystem.start) throw Object.assign(new Error("MindAR no está inicializado en la escena."), { code: "AR_UNAVAILABLE" });
 
       await arSystem.start();
-      console.log("Sistema AR iniciado por el usuario.");
+      console.log("AR ON");
       startButton.textContent = "Ejecutando...";
-
     } catch (e) {
       console.error("Error al iniciar AR:", e);
-
       //Mensajes específicos según el error
       if (e.name === "NotAllowedError") {
         showError("Has denegado el permiso de cámara. Ve a los permisos del navegador y habilítala, luego recarga.");
