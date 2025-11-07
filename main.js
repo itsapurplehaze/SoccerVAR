@@ -125,254 +125,186 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   //TRIVIA
-  //1)preguntas
-  const ALL_QUESTIONS = [
-    {
-      q: "¿Qué baile popular se originó en los barrios de Buenos Aires, Argentina, en el siglo XIX?",
-      options: ["Samba", "Flamenco", "Salsa", "Tango"],
-      correctIndex: 3
-    },
-    {
-      q: "En Australia, ¿qué animal supera en número a la población humana?",
-      options: ["Koalas", "Canguros", "Emúes", "Demonios de Tasmania"],
-      correctIndex: 1
-    },
-    {
-      q: "¿Qué ciudad de Brasil fue diseñada con forma de avión o pájaro?",
-      options: ["Brasilia", "São Paulo", "Río de Janeiro", "Salvador"],
-      correctIndex: 0
-    },
-    {
-      q: "¿Cuál es el segundo país más grande del mundo por superficie terrestre?",
-      options: ["Rusia", "China", "Estados Unidos", "Canadá"],
-      correctIndex: 3
-    },
-    {
-      q: "¿Cómo se conoce el sistema de edad tradicional en Corea del Sur, donde una persona tiene un año al nacer?",
-      options: ["Edad solar", "Edad lunar", "Edad nominal", "Edad gregoriana"],
-      correctIndex: 2
-    },
-    {
-      q: "¿Qué país lleva el nombre de una característica geográfica?",
-      options: ["Chile", "Perú", "Colombia", "Ecuador"],
-      correctIndex: 3
-    },
-    {
-      q: "En Estados Unidos, ¿qué parque de la ciudad de Nueva York es más grande que la Ciudad del Vaticano?",
-      options: ["Prospect Park", "Hyde Park", "Central Park", "Golden Gate Park"],
-      correctIndex: 2
-    },
-    {
-      q: "¿Cómo se llama la celebración tradicional del Año Nuevo iraní, que marca el equinoccio de primavera?",
-      options: ["Ashura", "Nowruz", "Eid al-Fitr", "Yalda"],
-      correctIndex: 1
-    },
-    {
-      q: "¿Qué país tiene la mayor densidad de máquinas expendedoras per cápita?",
-      options: ["Estados Unidos", "China", "Alemania", "Japón"],
-      correctIndex: 3
-    },
-    {
-      q: "¿Qué país de Oriente Medio no tiene petróleo?",
-      options: ["Jordania", "Kuwait", "Arabia Saudita", "Irak"],
-      correctIndex: 0
-    },
-    {
-      q: "¿Cuántas lenguas indígenas se hablan en México, además del español?",
-      options: ["67", "50", "25", "10"],
-      correctIndex: 0
-    },
-    {
-      q: "En Nueva Zelanda, ¿qué animal supera en número a las personas en una proporción de aproximadamente seis a uno?",
-      options: ["Vacas", "Kiwis", "Alpacas", "Ovejas"],
-      correctIndex: 3
-    },
-    {
-      q: "¿Qué famoso sistema de rutas comerciales atravesaba Uzbekistán?",
-      options: ["La Ruta del Ámbar", "La Ruta de las Especias", "La Ruta de la Seda", "La Ruta del Incienso"],
-      correctIndex: 2
-    },
-    {
-      q: "¿Qué país ha sido sede de la Copa del Mundo en tres ocasiones?",
-      options: ["Alemania", "Italia", "México", "Brasil"],
-      correctIndex: 2
-    },
-    {
-      q: "¿Cuántos países han ganado la Copa del Mundo en su propio país?",
-      options: ["8", "2", "4", "6"],
-      correctIndex: 3
+  (() => {
+    const ALL_QUESTIONS = [
+      { q: "¿Qué baile popular se originó en los barrios de Buenos Aires, Argentina, en el siglo XIX?", options: ["Samba","Flamenco","Salsa","Tango"], correctIndex: 3 },
+      { q: "En Australia, ¿qué animal supera en número a la población humana?", options: ["Koalas","Canguros","Emúes","Demonios de Tasmania"], correctIndex: 1 },
+      { q: "¿Qué ciudad de Brasil fue diseñada con forma de avión o pájaro?", options: ["Brasilia","São Paulo","Río de Janeiro","Salvador"], correctIndex: 0 },
+      { q: "¿Cuál es el segundo país más grande del mundo por superficie terrestre?", options: ["Rusia","China","Estados Unidos","Canadá"], correctIndex: 3 },
+      { q: "¿Cómo se conoce el sistema de edad tradicional en Corea del Sur, donde una persona tiene un año al nacer?", options: ["Edad solar","Edad lunar","Edad nominal","Edad gregoriana"], correctIndex: 2 },
+      { q: "¿Qué país lleva el nombre de una característica geográfica?", options: ["Chile","Perú","Colombia","Ecuador"], correctIndex: 3 },
+      { q: "En Estados Unidos, ¿qué parque de la ciudad de Nueva York es más grande que la Ciudad del Vaticano?", options: ["Prospect Park","Hyde Park","Central Park","Golden Gate Park"], correctIndex: 2 },
+      { q: "¿Cómo se llama la celebración tradicional del Año Nuevo iraní, que marca el equinoccio de primavera?", options: ["Ashura","Nowruz","Eid al-Fitr","Yalda"], correctIndex: 1 },
+      { q: "¿Qué país tiene la mayor densidad de máquinas expendedoras per cápita?", options: ["Estados Unidos","China","Alemania","Japón"], correctIndex: 3 },
+      { q: "¿Qué país de Oriente Medio no tiene petróleo?", options: ["Jordania","Kuwait","Arabia Saudita","Irak"], correctIndex: 0 },
+      { q: "¿Cuántas lenguas indígenas se hablan en México, además del español?", options: ["67","50","25","10"], correctIndex: 0 },
+      { q: "En Nueva Zelanda, ¿qué animal supera en número a las personas en una proporción de aproximadamente seis a uno?", options: ["Vacas","Kiwis","Alpacas","Ovejas"], correctIndex: 3 },
+      { q: "¿Qué famoso sistema de rutas comerciales atravesaba Uzbekistán?", options: ["La Ruta del Ámbar","La Ruta de las Especias","La Ruta de la Seda","La Ruta del Incienso"], correctIndex: 2 },
+      { q: "¿Qué país ha sido sede de la Copa del Mundo en tres ocasiones?", options: ["Alemania","Italia","México","Brasil"], correctIndex: 2 },
+      { q: "¿Cuántos países han ganado la Copa del Mundo en su propio país?", options: ["8","2","4","6"], correctIndex: 3 }
+    ];
+
+    //
+    const trivButton   = document.querySelector("#trivButton");
+    const trivModalEl  = document.querySelector("#triv-modal");
+    const closeBtn     = document.querySelector("#triv-close");
+
+    const screenStart    = document.querySelector("#triv-modal .triv-dialog");
+    const screenQuestion = document.querySelector("#triv-screen-question");
+    const screenWin      = document.querySelector("#triv-screen-win");
+    const screenLose     = document.querySelector("#triv-screen-lose");
+
+    const beginBtn         = document.querySelector("#triv-begin-btn");
+    const playAgainWinBtn  = document.querySelector("#triv-play-again-win");
+    const playAgainLoseBtn = document.querySelector("#triv-play-again-lose");
+
+    const questionText = document.querySelector("#triv-question-text");
+    const optionsBox   = document.querySelector("#triv-options");
+    const correctSpan  = document.querySelector("#triv-correct");
+    const livesSpan    = document.querySelector("#triv-lives");
+
+    let questionSet = [];
+    let currentIndex = 0;
+    let correctCount = 0;
+    let livesLeft = 3;
+
+    function pick5RandomQuestions() {
+      const copy = [...ALL_QUESTIONS];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy.slice(0, 5);
     }
-  ];
 
-  const trivButton = document.querySelector("#trivButton");
-  const trivModal = document.querySelector("#triv-modal");
-  const closeBtn = document.querySelector("#triv-close");
-
-  const screenStart = document.querySelector("#triv-screen-start");
-  const screenQuestion = document.querySelector("#triv-screen-question");
-  const screenWin = document.querySelector("#triv-screen-win");
-  const screenLose = document.querySelector("#triv-screen-lose");
-
-  const beginBtn = document.querySelector("#triv-begin-btn");
-  const playAgainWinBtn = document.querySelector("#triv-play-again-win");
-  const playAgainLoseBtn = document.querySelector("#triv-play-again-lose");
-
-  const questionText = document.querySelector("#triv-question-text");
-  const optionsBox = document.querySelector("#triv-options");
-  const correctSpan = document.querySelector("#triv-correct");
-  const livesSpan = document.querySelector("#triv-lives");
-
-  let questionSet = [];   //5 preguntas aleatorias
-  let currentIndex = 0;   //índice de la pregunta actual
-  let correctCount = 0;   //aciertos
-  let livesLeft = 3;      //vidas
-
-  function pick5RandomQuestions() {
-    const copy = [...ALL_QUESTIONS];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
+    function resetGame() {
+      questionSet = pick5RandomQuestions();
+      currentIndex = 0;
+      correctCount = 0;
+      livesLeft = 3;
+      updateHUD();
     }
-    return copy.slice(0, 5);
-  }
 
-  function resetGame() {
-    questionSet = pick5RandomQuestions();
-    currentIndex = 0;
-    correctCount = 0;
-    livesLeft = 3;
-    updateHUD();
-  }
+    function updateHUD() {
+      if (correctSpan) correctSpan.textContent = `${correctCount}/5`;
+      if (livesSpan)   livesSpan.textContent   = "❤️".repeat(livesLeft);
+    }
 
-  function updateHUD() {
-    if (correctSpan) correctSpan.textContent = `${correctCount}/5`;
-    if (livesSpan) livesSpan.textContent = "❤️".repeat(livesLeft);
-  }
+    function showCurrentQuestion() {
+      const qObj = questionSet[currentIndex];
+      if (!qObj) return;
+      if (questionText) questionText.textContent = qObj.q;
 
-  function showCurrentQuestion() {
-    const qObj = questionSet[currentIndex];
-    if (questionText) questionText.textContent = qObj.q;
+      if (optionsBox) {
+        optionsBox.innerHTML = "";
+        qObj.options.forEach((text, idx) => {
+          const btn = document.createElement("button");
+          btn.className = "triv-option-btn";
+          btn.textContent = text;
+          btn.addEventListener("click", () => handleAnswer(idx));
+          optionsBox.appendChild(btn);
+        });
+      }
+    }
 
-    if (optionsBox) {
-      optionsBox.innerHTML = "";
-      qObj.options.forEach((text, idx) => {
-        const btn = document.createElement("button");
-        btn.className = "triv-option-btn";
-        btn.textContent = text;
-        btn.addEventListener("click", () => handleAnswer(idx));
-        optionsBox.appendChild(btn);
+    function handleAnswer(chosenIndex) {
+      const qObj = questionSet[currentIndex];
+      const isCorrect = chosenIndex === qObj.correctIndex;
+
+      const allOptionButtons = optionsBox ? optionsBox.querySelectorAll(".triv-option-btn") : [];
+      allOptionButtons.forEach((btn, idx) => {
+        if (idx === qObj.correctIndex) btn.classList.add("correct");
+        if (idx === chosenIndex && !isCorrect) btn.classList.add("wrong");
+        btn.disabled = true;
+      });
+
+      if (isCorrect) correctCount++;
+      else livesLeft--;
+
+      updateHUD();
+
+      setTimeout(() => {
+        if (correctCount >= 5) { goToScreen("win"); return; }
+        if (livesLeft <= 0)   { goToScreen("lose"); return; }
+
+        currentIndex++;
+        if (currentIndex >= questionSet.length) goToScreen("lose");
+        else showCurrentQuestion();
+      }, 700);
+    }
+
+    function hideAll() {
+      if (screenStart)    screenStart.classList.add("triv-hidden");
+      if (screenQuestion) screenQuestion.classList.add("triv-hidden");
+      if (screenWin)      screenWin.classList.add("triv-hidden");
+      if (screenLose)     screenLose.classList.add("triv-hidden");
+    }
+
+    function goToScreen(which) {
+      hideAll();
+      if (which === "start"    && screenStart)    screenStart.classList.remove("triv-hidden");
+      if (which === "question" && screenQuestion) screenQuestion.classList.remove("triv-hidden");
+      if (which === "win"      && screenWin)      screenWin.classList.remove("triv-hidden");
+      if (which === "lose"     && screenLose)     screenLose.classList.remove("triv-hidden");
+    }
+
+    if (trivButton && trivModalEl) {
+      trivButton.addEventListener("click", () => {
+        trivModalEl.classList.remove("triv-hidden");
+        goToScreen("start");
+        document.body.style.overflow = "hidden";
       });
     }
-  }
 
-  function handleAnswer(chosenIndex) {
-    const qObj = questionSet[currentIndex];
-    const isCorrect = chosenIndex === qObj.correctIndex;
+    //Cerrar con X
+    if (closeBtn && trivModalEl) {
+      closeBtn.addEventListener("click", () => {
+        trivModalEl.classList.add("triv-hidden");
+        document.body.style.overflow = "";
+      });
+    }
 
-    const allOptionButtons = optionsBox ? optionsBox.querySelectorAll(".triv-option-btn") : [];
-    allOptionButtons.forEach((btn, idx) => {
-      if (idx === qObj.correctIndex) {
-        btn.classList.add("correct");
-      }
-      if (idx === chosenIndex && !isCorrect) {
-        btn.classList.add("wrong");
-      }
-      btn.disabled = true;
-    });
+    //Cerrar con el fondo
+    if (trivModalEl) {
+      trivModalEl.addEventListener("click", (e) => {
+        if (e.target === trivModalEl) {
+          trivModalEl.classList.add("triv-hidden");
+          document.body.style.overflow = "";
+        }
+      });
+    }
 
-    if (isCorrect) correctCount++;
-    else livesLeft--;
-
-    updateHUD();
-
-    setTimeout(() => {
-      if (correctCount >= 5) {
-        goToScreen("win");
-        return;
-      }
-      if (livesLeft <= 0) {
-        goToScreen("lose");
-        return;
-      }
-
-      currentIndex++;
-      if (currentIndex >= questionSet.length) {
-        goToScreen("lose");
-      } else {
-        showCurrentQuestion();
-      }
-    }, 700);
-  }
-
-  function goToScreen(which) {
-    if (!screenStart || !screenQuestion || !screenWin || !screenLose) return;
-
-    screenStart.classList.add("triv-hidden");
-    screenQuestion.classList.add("triv-hidden");
-    screenWin.classList.add("triv-hidden");
-    screenLose.classList.add("triv-hidden");
-
-    if (which === "start") screenStart.classList.remove("triv-hidden");
-    else if (which === "question") screenQuestion.classList.remove("triv-hidden");
-    else if (which === "win") screenWin.classList.remove("triv-hidden");
-    else if (which === "lose") screenLose.classList.remove("triv-hidden");
-  }
-
-  if (trivButton && trivModal) {
-    trivButton.addEventListener("click", () => {
-      trivModal.classList.remove("triv-hidden");
-      goToScreen("start");
-      document.body.style.overflow = "hidden"; //bloquear scroll del fondo
-    });
-  }
-
-  //cerrar con la X
-  if (closeBtn && trivModal) {
-    closeBtn.addEventListener("click", () => {
-      trivModal.classList.add("triv-hidden");
-      document.body.style.overflow = "";
-    });
-  }
-
-  if (trivModal) {
-    trivModal.addEventListener("click", (e) => {
-      if (e.target === trivModal) {
-        trivModal.classList.add("triv-hidden");
+    //Cerrar con ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && trivModalEl && !trivModalEl.classList.contains("triv-hidden")) {
+        trivModalEl.classList.add("triv-hidden");
         document.body.style.overflow = "";
       }
     });
-  }
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && trivModal && !trivModal.classList.contains("triv-hidden")) {
-      trivModal.classList.add("triv-hidden");
-      document.body.style.overflow = "";
+    //Empezar
+    if (beginBtn) {
+      beginBtn.addEventListener("click", () => {
+        resetGame();
+        goToScreen("question");
+        showCurrentQuestion();
+      });
     }
-  });
 
-  if (beginBtn) {
-    beginBtn.addEventListener("click", () => {
-      resetGame();
-      goToScreen("question");
-      showCurrentQuestion();
-    });
-  }
-
-  //"JUGAR OTRA VEZ" desde win
-  if (playAgainWinBtn) {
-    playAgainWinBtn.addEventListener("click", () => {
-      resetGame();
-      goToScreen("question");
-      showCurrentQuestion();
-    });
-  }
-
-  //"VOLVER A INTENTAR" desde lose
-  if (playAgainLoseBtn) {
-    playAgainLoseBtn.addEventListener("click", () => {
-      resetGame();
-      goToScreen("question");
-      showCurrentQuestion();
-    });
-  }
+    //Reintentos
+    if (playAgainWinBtn) {
+      playAgainWinBtn.addEventListener("click", () => {
+        resetGame();
+        goToScreen("question");
+        showCurrentQuestion();
+      });
+    }
+    if (playAgainLoseBtn) {
+      playAgainLoseBtn.addEventListener("click", () => {
+        resetGame();
+        goToScreen("question");
+        showCurrentQuestion();
+      });
+    }
+  })();
 });
