@@ -67,10 +67,10 @@ button{
 }
 /*Efectos BOTONES: hover*/
 button:hover{
-    background: linear-gradient(135deg, #a6014ea6, #ff72c99b);
+    background: linear-gradient(135deg, #a80e56, #ff72c99b);
     box-shadow: 
-        0 0 20px rgba(251, 21, 128, 0.479), 
-        0 0 40px rgba(255, 0, 174, 0.279);
+        0 0 20px rgba(252, 66, 153, 0.479), 
+        0 0 40px rgba(255, 74, 198, 0.279);
     transform: scale(1.05);
 }
 /*: clic*/
@@ -124,7 +124,7 @@ button:hover::before{
 #trivButton:hover{
     background: linear-gradient(135deg,  #9c07ff78, #9b4fff86);
     box-shadow: 
-        0 0 25px rgba(255, 7, 251, 0.479), 
+        0 0 25px rgba(127, 7, 255, 0.479), 
         0 0 45px rgba(205, 7, 255, 0.279);
 }
 
