@@ -650,21 +650,28 @@ button:hover::before{
     background: rgba(0,0,0,0.4);
     border: 1px solid rgba(0,255,255,0.4);
     border-radius: 10px;
-    padding: 6px 10px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    padding: 3px 5px;
+    font-size: 0.7rem;
+    font-weight: 500;
     color: #fff;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0,255,255,0.3);
+    opacity: 0.7;
+    transform: scale(0.98);
     transition: all .2s;
 }
 .filter-btn:hover {
     background: rgba(0,255,255,0.15);
     box-shadow: 0 0 15px rgba(0,255,255,0.6);
+    opacity: 1;
     transform: scale(1.05);
 }
 .filter-btn.active {
     background: rgba(0,255,255,0.3);
+    border-color: rgba(0,255,255,0.7);
+    box-shadow: 0 0 15px rgba(0,255,255, 0.6);
+    opacity: 1;
+    transform: scale(1);
 }
 
 .vid-list {
@@ -691,6 +698,7 @@ button:hover::before{
     box-shadow: 
         0 0 20px rgba(0, 0, 0, 0.197),
         0 0 30px rgba(255, 0, 166, 0.15);
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .vid-block h3 {
@@ -703,6 +711,11 @@ button:hover::before{
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.vid-block:hover {
+    background: rgba(255, 255,255, 0.7);
+    transform: scale(1.01);
 }
 
 .flag-emoji {
@@ -721,6 +734,7 @@ button:hover::before{
     overflow: hidden;
     aspect-ratio: 16 / 9;
     filter: var(--video-filter, none);
+    transition: filter 0.3s ease-in-out;
 }
 
 .vid-frame iframe {
