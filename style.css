@@ -457,6 +457,7 @@ button:hover::before{
     color: #5cc3ff;
     text-shadow: 0 0 8px rgba(92, 220, 255, 0.6);
     margin: 0;
+    text-align: center;
 }
 
 .triv-lose {
@@ -465,6 +466,7 @@ button:hover::before{
     color: #ffbd60;
     text-shadow: 0 0 8px rgba(255, 205, 96, 0.6);
     margin: 0;
+    text-align: center;
 }
 
 .triv-main-btn {
@@ -518,7 +520,7 @@ button:hover::before{
     position: sticky;
     top: 0;
     padding: 6px 0;
-    background: linear-gradient(rgba(20, 20, 20, 0.95), rgba(20, 20, 20, 0.9));
+    background: linear-gradient(rgba(20, 20, 20, 0.379), rgba(20, 20, 20, 0.292));
     z-index: 1;
   }
   .triv-question-text {
@@ -607,8 +609,8 @@ button:hover::before{
         align-items: center;
         justify-content: flex-end;
         padding: 0 16px 7vh;
-        background-position: center;
-        background-size: contain top;
+        background-position: center top;
+        background-size: contain;
         background-color: #0b1302fa;
     }
     .landing-content {
