@@ -601,7 +601,7 @@ button:hover::before{
     font-weight: 600;
     line-height: 1;
     border-radius: 6px;
-    padding: 4px 8px;
+    padding: 2px 5px;
     cursor: pointer;
     box-shadow:
         0 0 15px rgba(128, 0, 255, 0.6),
@@ -650,7 +650,7 @@ button:hover::before{
     background: rgba(0,0,0,0.4);
     border: 1px solid rgba(0,255,255,0.4);
     border-radius: 10px;
-    padding: 3px 5px;
+    padding: 2px 5px;
     font-size: 0.7rem;
     font-weight: 500;
     color: #fff;
@@ -744,7 +744,7 @@ button:hover::before{
     --filter-warm: brightness(1.05) saturate(1.3) hue-rotate(-10deg);
     --filter-cool: brightness(1.05) saturate(1.2) hue-rotate(180deg);
     --filter-bw  : grayscale(1) contrast(1.2);
-    --filter-retro: contrast(1.1) saturate(0.8) sepia(0.3) hue-rotate(-20deg) brightness(1.1);
+    --filter-retro: sepia(0.5) grayscale(0.3) saturate(0.8) contrast(1.1);
 }
 
 /*Resp Vids*/
