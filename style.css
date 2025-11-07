@@ -611,7 +611,7 @@ button:hover::before{
         align-items: center;
         justify-content: flex-end;
         padding: 0 16px 7vh;
-        background-position: center top;
+        background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
         background-color: #0b1302fa;
