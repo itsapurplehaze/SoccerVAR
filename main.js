@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const trivButton = document.querySelector("#trivButton");
-  const triviaModal = document.querySelector("#triv-modal");
+  const trivModal = document.querySelector("#triv-modal");
   const closeBtn = document.querySelector("#triv-close");
 
   const screenStart = document.querySelector("#triv-screen-start");
@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && triviaModal && !triviaModal.classList.contains("triv-hidden")) {
+    if (e.key === "Escape" && trivModal && !trivModal.classList.contains("triv-hidden")) {
       trivModal.classList.add("triv-hidden");
       document.body.style.overflow = "";
     }
