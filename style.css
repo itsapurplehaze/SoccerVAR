@@ -346,6 +346,157 @@ button:hover::before{
 
 
 
+/*TRIVIA*/
+#triv-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+    color: #fff;
+}
+.triv-hidden {
+    display: none !important;
+}
+
+.triv-dialog {
+    position: relative;
+    width: 90%;
+    max-width: 360px;
+    background: rgba(20,20,20,0.9);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    padding: 20px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+}
+
+.triv-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: 0;
+    color: #fd0050f6;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.triv-screen {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.triv-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(255,255,255,0.4);
+    margin: 0;
+}
+
+.triv-rules {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #ccc;
+    margin: 0 auto;
+}
+
+.triv-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.triv-question-text {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+    color: #fff;
+    text-align: left;
+}
+
+.triv-options {
+    display: grid;
+    gap: 10px;
+}
+
+.triv-option-btn {
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    padding: 12px;
+    background: rgba(255,255,255,0.07);
+    color: #fff;
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.2;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.15s;
+}
+
+.triv-option-btn:active {
+    transform: scale(0.98);
+}
+
+.triv-option-btn.correct {
+    background: rgba(0,180,60,0.3);
+    border-color: rgba(0,255,100,0.6);
+}
+
+.triv-option-btn.wrong {
+    background: rgba(200,0,0,0.3);
+    border-color: rgba(255,0,0,0.6);
+}
+
+.triv-win {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #5cc3ff;
+    text-shadow: 0 0 8px rgba(92, 220, 255, 0.6);
+    margin: 0;
+}
+
+.triv-lose {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffbd60;
+    text-shadow: 0 0 8px rgba(255, 205, 96, 0.6);
+    margin: 0;
+}
+
+.triv-main-btn {
+    background: radial-gradient(circle at 20% 20%, #bb00ff 0%, #b3ff00 60%);
+    color: #000;
+    border: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(200, 0, 255, 0.4);
+}
+
+.triv-main-btn:active {
+    transform: scale(0.98);
+}
+
+
+
 #ar-container, a-scene {
     background-color: transparent;
     width: 100%;

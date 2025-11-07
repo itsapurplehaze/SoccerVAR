@@ -85,6 +85,40 @@
     </div>
   </div>
 
+  <div id="triv-modal" class="triv-hidden">
+    <div class="triv-dialog">
+      <button id="triv-close" class="trivia-close-btn">✕</button>
+
+      <h2 class="triv-title">TRIVIA CuP</h2>
+      <p class="triv-rules">
+        • Responde las preguntas correctamente.<br>
+        • Solo puedes fallar 3 veces.<br>
+        • ¿Listo?
+      </p>
+      <button id="triv-begin-btn" class="triv-main-btn">GOOO!</button>
+    </div>
+
+    <div id="triv-screen-question" class="triv-screen triv-hidden">
+      <div class="triv-stats">
+        <span id="triv-correct">0/5</span>
+        <span id="triv-lives">❤️❤️❤️</span>
+      </div>
+
+      <h3 id="triv-question-text" class="triv-question-text"></h3>
+      <div id="triv-options" class="triv-options"></div>
+    </div>
+
+    <div id="triv-screen-win" class="triv-screen triv-hidden">
+      <h2 class="triv-win">¡PERFECTO! 🏆</h2>
+      <button class="triv-main-btn" id="triv-play-again-win">JUGAR OTRA VEZ</button>
+    </div>
+
+    <div id="triv-screen-lose" class="triv-screen triv-hidden">
+      <h2 class="triv-lose">GAME OVER 😢</h2>
+      <button class="triv-main-btn" id="triv-play-again-lose">VOLVER A INTENTAR</button>
+    </div>
+  </div>
+
   <script type="module" src="./main.js"></script>
   
 </body>
