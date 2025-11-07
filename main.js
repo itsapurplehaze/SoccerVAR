@@ -299,4 +299,76 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   })();
+
+  //VIDEOS
+  const videoOpenBtn   = document.getElementById('vidsButton');
+  const vidModal       = document.getElementById('vid-modal');
+  const vidDialog      = document.querySelector('.vid-dialog');
+  const backFromVids   = document.getElementById('backFromVids');
+  const filterButtons  = document.querySelectorAll('.filter-btn');
+
+  const getVideoFrames = () => document.querySelectorAll('.video-frame');
+
+  function openVidModal() {
+    if (!vidModal) return;
+    vidModal.classList.remove('hidden');
+  }
+
+  function closeVidModal() {
+    if (!vidModal) return;
+    vidModal.classList.add('hidden');
+
+    getVideoFrames().forEach(frame => {
+      const iframe = frame.querySelector('iframe');
+      if (iframe) {
+        const src = iframe.getAttribute('src');
+        iframe.setAttribute('src', src);
+      }
+    });
+  }
+
+  if (videoOpenBtn) {
+    videoOpenBtn.addEventListener('click', openVidModal);
+  }
+
+  //cerrar con HOME
+  if (backFromVids) {
+    backFromVids.addEventListener('click', closeVidModal);
+  }
+
+  //cerrar con el fondo
+  if (vidModal) {
+    vidModal.addEventListener('click', (ev) => {
+      if (ev.target === vidModal) closeVidModal();
+    });
+  }
+
+  //=== Filtros ===
+  function applyFilterToVideos(filterName) {
+    let filterValue = 'none';
+
+    switch (filterName) {
+      case 'none': filterValue = 'var(--filter-none)'; break;
+      case 'warm': filterValue = 'var(--filter-warm)'; break;
+      case 'cool': filterValue = 'var(--filter-cool)'; break;
+      case 'bw'  : filterValue = 'var(--filter-bw)';   break;
+      case 'neon': filterValue = 'var(--filter-neon)'; break;
+    }
+
+    getVideoFrames().forEach(frame => {
+      frame.style.setProperty('--video-filter', filterValue);
+    });
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const chosen = btn.getAttribute('data-filter');
+      applyFilterToVideos(chosen);
+    });
+  });
+
+  document.querySelector('.filter-btn[data-filter="none"]')?.classList.add('active');
 });
