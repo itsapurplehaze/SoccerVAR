@@ -784,6 +784,7 @@ button:hover::before{
         margin-bottom: 10px;
         border-radius: 10px;
         backdrop-filter: blur(6px);
+        background: rgba(10, 10, 20, 0.85);
     }
   .filter-label { font-size: 0.8rem; }
   .filter-btn {
