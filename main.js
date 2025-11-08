@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
       case 'warm': filterValue = 'var(--filter-warm)'; break;
       case 'cool': filterValue = 'var(--filter-cool)'; break;
       case 'bw'  : filterValue = 'var(--filter-bw)';   break;
-      case 'neon': filterValue = 'var(--filter-neon)'; break;
+      case 'retro': filterValue = 'var(--filter-retro)'; break;
     }
 
     getVideoFrames().forEach(frame => {
