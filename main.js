@@ -24,6 +24,37 @@ AFRAME.registerComponent('spin-bob', {
   }
 });
 
+const DATA = {
+  mexico: {
+    stats: {
+      seleccion: "México",
+      apodos: ["El Tri"],
+      copasDelMundo: 0,
+      copaConfederaciones: 1,
+      copaOro: 12,
+      ligaNacionesCONCACAF: 0,
+      oroOlimpico: 1,
+      bronceOlimpico: 1,
+      mundialSub17: 2,
+      participacionesMundial: 18,
+      mejorResultado: "Cuartos de final (1970, 1986)",
+      confederaciones: 1,
+      estrellas: ["Hirving Lozano", "Edson Álvarez", "Santiago Giménez"]
+    },
+    info: {
+      pais: "México",
+      capital: "Ciudad de México",
+      region: "Norteamérica",
+      idioma: "Español",
+      lenguasIndigenasReconocidas: "68",
+      presidenta: "Claudia Sheinbaum Pardo",
+      periodoPresidencial: "2024-2030",
+      moneda: "Peso mexicano (MXN)",
+      curiosidad: "Sede mundialista en 1970 y 1986."
+    }
+  }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.querySelector("#startButton");
   const landingPage = document.querySelector("#landing-page");
@@ -396,149 +427,167 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector('.filter-btn[data-filter="none"]')?.classList.add('active');
 
   /*UXUI AR*/
-  (() => {
-    const arUI         = document.getElementById('ar-ui');           
-    const btnPlayAnim  = document.getElementById('btnPlayAnim');     
-    const btnStats     = document.getElementById('btnStats');        
-    const btnCountry   = document.getElementById('btnCountry');      
-    const panelStats   = document.getElementById('panel-stats');
-    const panelCountry = document.getElementById('panel-country');
-    const statsBody    = document.getElementById('stats-body');
-    const countryBody  = document.getElementById('country-body');
+  const arUI          = document.getElementById('ar-ui');
+  const btnPlayAnim   = document.getElementById('btnPlayAnim');
+  const btnStats      = document.getElementById('btnStats');
+  const btnCountry    = document.getElementById('btnCountry');
+  const panelStats    = document.getElementById('panel-stats');
+  const panelCountry  = document.getElementById('panel-country');
+  const statsBody     = document.getElementById('stats-body');
+  const countryBody   = document.getElementById('country-body');
 
-    const mexicoFlagTarget = document.getElementById('Mexico-flag');
-    const mexModel         = document.getElementById('mexModel');
-    const mexModelContainer = document.getElementById('mexModelContainer');
+  // Estado global del target activo
+  const state = {
+    key: null,          // 'mexico', 'argentina', etc.
+    modelEl: null,      // a-gltf-model del target activo
+    containerEl: null,  // .team-container del target activo
+    playing: false
+  };
 
-    const DATA = {
-      mexico: {
-        stats: {
-          seleccion: "México",
-          apodos: ["El Tri"],
-          copasDelMundo: 0,
-          copaConfederaciones: 1,
-          copaOro: 12,
-          ligaNacionesCONCACAF: 0,
-          oroOlimpico: 1,
-          bronceOlimpico: 1,
-          mundialSub17: 2,
-          participacionesMundial: 18,
-          mejorResultado: "Cuartos de final (1970, 1986)",
-          confederaciones: 1,
-          estrellas: ["Hirving Lozano", "Edson Álvarez", "Santiago Giménez"]
-        },
-        info: {
-          pais: "México",
-          capital: "Ciudad de México",
-          region: "Norteamérica",
-          idioma: "Español",
-          lenguasIndigenasReconocidas: "68",
-          presidenta: "Claudia Sheinbaum Pardo",
-          periodoPresidencial: "2024-2030",
-          moneda: "Peso mexicano (MXN)",
-          curiosidad: "Sede mundialista en 1970 y 1986."
+  // Helpers
+  const ensureSpinBob = (el) => {
+    if (el && !el.hasAttribute('spin-bob')) el.setAttribute('spin-bob', '');
+  };
+
+  const setPlayUI = (isPlaying) => {
+    state.playing = !!isPlaying;
+
+    if (btnPlayAnim) {
+      btnPlayAnim.textContent = state.playing ? '⏸' : '▶';
+      btnPlayAnim.setAttribute('aria-label', state.playing ? 'Pausar' : 'Reproducir');
+    }
+
+    if (state.modelEl) {
+      const currentMixer = state.modelEl.getAttribute('animation-mixer') || '';
+      const timeScale = state.playing ? 1 : 0;
+      state.modelEl.setAttribute('animation-mixer', `${currentMixer}; timeScale:${timeScale}`);
+    }
+
+    const spinComp = state.containerEl?.components['spin-bob'];
+    if (spinComp) (state.playing ? spinComp.play() : spinComp.pause());
+  };
+
+  const resetPanels = () => {
+    panelStats?.classList.add('hidden');
+    panelCountry?.classList.add('hidden');
+  };
+
+  // Vincula eventos a TODOS los targets MindAR que tengas en escena
+  const bindTargets = () => {
+    const targets = document.querySelectorAll('[mindar-image-target]');
+    targets.forEach((target) => {
+      const key = target.dataset.key?.trim(); // p.ej. "mexico"
+      // Encuentra elementos internos (con clases comunes o fallback por id)
+      const containerEl =
+        target.querySelector('.team-container') ||
+        document.getElementById('mexModelContainer'); // fallback
+
+      const modelEl =
+        target.querySelector('.team-model') ||
+        document.getElementById('mexModel'); // fallback
+
+      // Debug opcional
+      // console.log('bind target:', key, {containerEl, modelEl});
+
+      // Asegura efecto flotante/rotación
+      ensureSpinBob(containerEl);
+
+      // Aparece el target
+      target.addEventListener('targetFound', () => {
+        // Selecciona este target como activo
+        state.key = key || null;
+        state.modelEl = modelEl || null;
+        state.containerEl = containerEl || null;
+
+        arUI?.classList.remove('hidden');
+        setPlayUI(false); // arranca pausado
+        // console.log(`Target FOUND: ${key}`);
+      });
+
+      // Pierdes el target
+      target.addEventListener('targetLost', () => {
+        // Solo oculta UI si el que se perdió es el activo
+        if (state.key === (key || null)) {
+          setPlayUI(false);
+          resetPanels();
+          arUI?.classList.add('hidden');
+
+          // Limpia referencias del activo
+          state.key = null;
+          state.modelEl = null;
+          state.containerEl = null;
         }
-      }
-    };
-    
-    // AÑADE el componente spin-bob al contenedor (por si no lo pusiste en HTML)
-    if (mexModelContainer && !mexModelContainer.hasAttribute('spin-bob')) {
-      mexModelContainer.setAttribute('spin-bob', '');
-    }
-
-    // Estado de la animación (mucho más simple)
-    const animState = { playing: false };
-
-    // Función para actualizar el botón y el estado
-    function setPlayUI(isPlaying) {
-      animState.playing = !!isPlaying;
-      if (btnPlayAnim) {
-        btnPlayAnim.textContent = animState.playing ? '⏸' : '▶';
-        btnPlayAnim.setAttribute('aria-label', animState.playing ? 'Pausar' : 'Reproducir');
-      }
-
-      // 1) Mixer del glTF
-      if (mexModel) {
-        // Cambia solo timeScale; respeta el resto de opciones
-        const currentMixer = mexModel.getAttribute('animation-mixer') || '';
-        const timeScale = animState.playing ? 1 : 0;
-        // reescribe/inyecta timeScale (simple: append override)
-        mexModel.setAttribute('animation-mixer', `${currentMixer}; timeScale:${timeScale}`);
-      }
-
-      // 2) Componente de flote/giro
-      const spinComp = mexModelContainer?.components['spin-bob'];
-      if (spinComp) {
-        animState.playing ? spinComp.play() : spinComp.pause();
-      }
-    }
-  
-    // Tracking: mostrar/ocultar UI y resetear anim/botón
-    mexicoFlagTarget?.addEventListener('targetFound', () => {
-      arUI?.classList.remove('hidden');
-      setPlayUI(false);
-    });
-    mexicoFlagTarget?.addEventListener('targetLost', () => {
-      arUI?.classList.add('hidden');
-      panelStats?.classList.add('hidden');
-      panelCountry?.classList.add('hidden');
-      setPlayUI(false);
-    });
-  
-    // ▶ / ⏸
-    btnPlayAnim?.addEventListener('click', () => {
-      setPlayUI(!animState.playing);
-    });
-    
-    //INFO
-    document.querySelectorAll('.panel-close')?.forEach(b=>{
-      b.addEventListener('click', (e)=>{
-        const sel = e.currentTarget.getAttribute('data-close');
-        document.querySelector(sel)?.classList.add('hidden');
+        // console.log(`Target LOST: ${key}`);
       });
     });
+  };
 
-    btnStats?.addEventListener('click', () => {
-      const d = DATA.mexico.stats;
-      statsBody.innerHTML = `
-        <p><strong>Selección:</strong> ${d.seleccion}</p>
-        <p><strong>Apodos:</strong> ${d.apodos.join(', ')}</p>
-        <p class="pill">Copas del Mundo: ${d.copasDelMundo}</p>
-        <p class="pill">Participaciones: ${d.participacionesMundial}</p>
-        <p><strong>Mejor resultado:</strong> ${d.mejorResultado}</p>
-        <p class="pill">Copa Confederaciones: ${d.confederaciones}</p>
-        <p class="pill">Copa Oro: ${d.copaOro}</p>
-        <p class="pill">Liga de Naciones CONCACAF: ${d.ligaNacionesCONCACAF}</p>
-        <p class="pill">Oro Olímpico: ${d.oroOlimpico}</p>
-        <p class="pill">Bronce Olímpico: ${d.bronceOlimpico}</p>
-        <p class="pill">Mundial Sub-17: ${d.mundialSub17}</p>
-        <p><strong>Jugadores clave:</strong> ${d.estrellas.join(', ')}</p>
-      `;
-      panelCountry?.classList.add('hidden');
-      panelStats?.classList.remove('hidden');
-    });
+  // Botón ▶ / ⏸
+  btnPlayAnim?.addEventListener('click', () => {
+    // Si no hay target activo, ignora
+    if (!state.modelEl) return;
+    setPlayUI(!state.playing);
+  });
 
-    btnCountry?.addEventListener('click', () => {
-      const d = DATA.mexico.info;
-      countryBody.innerHTML = `
-        <p><strong>País:</strong> ${d.pais}</p>
-        <p><strong>Capital:</strong> ${d.capital}</p>
-        <p><strong>Región:</strong> ${d.region}</p>
-        <p><strong>Idioma:</strong> ${d.idioma}</p>
-        <p><strong>Lenguas indígenas reconocidas:</strong> ${d.lenguasIndigenasReconocidas}</p>
-        <p><strong>Presidencia:</strong> ${d.presidenta} (${d.periodoPresidencial})</p>
-        <p><strong>Moneda:</strong> ${d.moneda}</p>
-        <p><strong>Dato:</strong> ${d.curiosidad}</p>
-      `;
-      panelStats?.classList.add('hidden');
-      panelCountry?.classList.remove('hidden');
+  // Cerrar paneles (X)
+  document.querySelectorAll('.panel-close')?.forEach(b => {
+    b.addEventListener('click', (e) => {
+      const sel = e.currentTarget.getAttribute('data-close');
+      document.querySelector(sel)?.classList.add('hidden');
     });
+  });
 
-    sceneEl?.addEventListener('click', (e) => {
-      if (!e.target.closest?.('.ui-bar') && !e.target.closest?.('.side-panel')) {
-        panelStats?.classList.add('hidden');
-        panelCountry?.classList.add('hidden');
-      }
-    });
-  })();
+  // Botón 📊
+  btnStats?.addEventListener('click', () => {
+    if (!state.key) return;
+    const d = DATA[state.key]?.stats;
+    if (!d) return;
+
+    statsBody.innerHTML = `
+      <p><strong>Selección:</strong> ${d.seleccion}</p>
+      <p><strong>Apodos:</strong> ${d.apodos.join(', ')}</p>
+      <p class="pill">Copas del Mundo: ${d.copasDelMundo}</p>
+      <p class="pill">Participaciones: ${d.participacionesMundial}</p>
+      <p><strong>Mejor resultado:</strong> ${d.mejorResultado}</p>
+      <p class="pill">Copa Confederaciones: ${d.confederaciones}</p>
+      <p class="pill">Copa Oro: ${d.copaOro}</p>
+      ${d.ligaNacionesCONCACAF!=null ? `<p class="pill">Liga de Naciones CONCACAF: ${d.ligaNacionesCONCACAF}</p>` : ''}
+      ${d.oroOlimpico!=null ? `<p class="pill">Oro Olímpico: ${d.oroOlimpico}</p>` : ''}
+      ${d.bronceOlimpico!=null ? `<p class="pill">Bronce Olímpico: ${d.bronceOlimpico}</p>` : ''}
+      ${d.mundialSub17!=null ? `<p class="pill">Mundial Sub-17: ${d.mundialSub17}</p>` : ''}
+      <p><strong>Jugadores clave:</strong> ${d.estrellas.join(', ')}</p>
+    `;
+    panelCountry?.classList.add('hidden');
+    panelStats?.classList.remove('hidden');
+  });
+
+  // Botón 🗺️
+  btnCountry?.addEventListener('click', () => {
+    if (!state.key) return;
+    const d = DATA[state.key]?.info;
+    if (!d) return;
+
+    countryBody.innerHTML = `
+      <p><strong>País:</strong> ${d.pais}</p>
+      <p><strong>Capital:</strong> ${d.capital}</p>
+      <p><strong>Región:</strong> ${d.region}</p>
+      <p><strong>Idioma:</strong> ${d.idioma}</p>
+      ${d.lenguasIndigenasReconocidas ? `<p><strong>Lenguas indígenas reconocidas:</strong> ${d.lenguasIndigenasReconocidas}</p>` : ''}
+      ${d.presidenta ? `<p><strong>Presidencia:</strong> ${d.presidenta} (${d.periodoPresidencial})</p>` : ''}
+      <p><strong>Moneda:</strong> ${d.moneda}</p>
+      <p><strong>Dato:</strong> ${d.curiosidad}</p>
+    `;
+    panelStats?.classList.add('hidden');
+    panelCountry?.classList.remove('hidden');
+  });
+
+  // Click en escena para cerrar paneles si tocas fuera
+  sceneEl?.addEventListener('click', (e) => {
+    if (!e.target.closest?.('.ui-bar') && !e.target.closest?.('.side-panel')) {
+      resetPanels();
+    }
+  });
+
+  // Bind a todos los targets existentes
+  bindTargets();
 });
