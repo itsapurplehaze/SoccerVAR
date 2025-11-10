@@ -1,3 +1,29 @@
+AFRAME.registerComponent('spin-bob', {
+  schema: {
+    spinY:   { default: 1.5 },   // grados por frame aprox
+    speed:   { default: 1.5 },   // frecuencia del flote
+    amp:     { default: 0.08 },  // amplitud del flote
+    baseY:   { default: 0.1 }    // altura base
+  },
+  init() {
+    this.t = 0;
+    const pos = this.el.getAttribute('position') || {x:0,y:this.data.baseY,z:0};
+    if (pos.y === 0) pos.y = this.data.baseY;
+    this.el.setAttribute('position', pos);
+  },
+  tick(time, dt) {
+    // rotación Y continua
+    const rot = this.el.getAttribute('rotation');
+    this.el.setAttribute('rotation', { x: rot.x, y: rot.y + this.data.spinY, z: rot.z });
+
+    // movimiento de flote
+    this.t += (dt || 16) / 1000;
+    const y = this.data.baseY + Math.sin(this.t * this.data.speed) * this.data.amp;
+    const p = this.el.getAttribute('position');
+    this.el.setAttribute('position', { x: p.x, y, z: p.z });
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.querySelector("#startButton");
   const landingPage = document.querySelector("#landing-page");
@@ -379,9 +405,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const panelCountry = document.getElementById('panel-country');
     const statsBody    = document.getElementById('stats-body');
     const countryBody  = document.getElementById('country-body');
-    const sceneEl          = document.querySelector('a-scene');
+
     const mexicoFlagTarget = document.getElementById('Mexico-flag');
     const mexModel         = document.getElementById('mexModel');
+    const mexModelContainer = document.getElementById('mexModelContainer');
 
     const DATA = {
       mexico: {
@@ -413,20 +440,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     };
+    
+    // AÑADE el componente spin-bob al contenedor (por si no lo pusiste en HTML)
+    if (mexModelContainer && !mexModelContainer.hasAttribute('spin-bob')) {
+      mexModelContainer.setAttribute('spin-bob', '');
+    }
 
-    //animación
-    const mexModelContainer = document.getElementById('mexModelContainer');
-  
     // Estado de la animación (mucho más simple)
     const animState = { playing: false };
 
-    let floatTime = 0;
     // Función para actualizar el botón y el estado
     function setPlayUI(isPlaying) {
       animState.playing = !!isPlaying;
       if (btnPlayAnim) {
         btnPlayAnim.textContent = animState.playing ? '⏸' : '▶';
         btnPlayAnim.setAttribute('aria-label', animState.playing ? 'Pausar' : 'Reproducir');
+      }
+
+      // 1) Mixer del glTF
+      if (mexModel) {
+        // Cambia solo timeScale; respeta el resto de opciones
+        const currentMixer = mexModel.getAttribute('animation-mixer') || '';
+        const timeScale = animState.playing ? 1 : 0;
+        // reescribe/inyecta timeScale (simple: append override)
+        mexModel.setAttribute('animation-mixer', `${currentMixer}; timeScale:${timeScale}`);
+      }
+
+      // 2) Componente de flote/giro
+      const spinComp = mexModelContainer?.components['spin-bob'];
+      if (spinComp) {
+        animState.playing ? spinComp.play() : spinComp.pause();
       }
     }
   
@@ -445,34 +488,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // ▶ / ⏸
     btnPlayAnim?.addEventListener('click', () => {
       setPlayUI(!animState.playing);
-    });
-  
-    sceneEl?.addEventListener('tick', (event) => {
-      const timeDelta = event.detail.timeDelta;
-      // Si el estado es 'playing' y el contenedor existe...
-      if (animState.playing && mexModelContainer) {
-        // Obtenemos la rotación actual
-        const currentRotation = mexModelContainer.getAttribute('rotation');
-        // Le sumamos 1 grado a la rotación en Y
-        mexModelContainer.setAttribute('rotation', { 
-          x: currentRotation.x, 
-          y: currentRotation.y + 1.5,
-          z: currentRotation.z 
-        });
-
-        // Movimiento flotante
-        if (timeDelta) { 
-          floatTime += timeDelta / 1000;
-        }
-        const floatY = Math.sin(floatTime * 1.5) * 0.08;
-
-        const currentPosition = mexModelContainer.getAttribute('position');
-        mexModelContainer.setAttribute('position', { 
-          x: currentPosition.x,
-          y: 0.1 + floatY,
-          z: currentPosition.z
-        });
-      }
     });
 
     //INFO
