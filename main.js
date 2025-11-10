@@ -489,6 +489,34 @@ document.addEventListener("DOMContentLoaded", () => {
     btnPlayAnim?.addEventListener('click', () => {
       setPlayUI(!animState.playing);
     });
+  
+    sceneEl?.addEventListener('tick', (event) => {
+      const timeDelta = event.detail.timeDelta;
+      // Si el estado es 'playing' y el contenedor existe...
+      if (animState.playing && mexModelContainer) {
+        // Obtenemos la rotación actual
+        const currentRotation = mexModelContainer.getAttribute('rotation');
+        // Le sumamos 1 grado a la rotación en Y
+        mexModelContainer.setAttribute('rotation', { 
+          x: currentRotation.x, 
+          y: currentRotation.y + 1.5,
+          z: currentRotation.z 
+        });
+
+        // Movimiento flotante
+        if (timeDelta) { 
+          floatTime += timeDelta / 1000;
+        }
+        const floatY = Math.sin(floatTime * 1.5) * 0.08;
+
+        const currentPosition = mexModelContainer.getAttribute('position');
+        mexModelContainer.setAttribute('position', { 
+          x: currentPosition.x,
+          y: 0.1 + floatY,
+          z: currentPosition.z
+        });
+      }
+    });
 
     //INFO
     document.querySelectorAll('.panel-close')?.forEach(b=>{
