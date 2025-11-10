@@ -39,13 +39,39 @@
       </a-assets>
 
       <!--Index de las banderas en el .mind-->
-      <!--México-->
+      <!-- 0/ México-->
       <a-entity id="Mexico-flag" mindar-image-target="targetIndex: 0">
         <a-entity position="0 0 0.1" scale="0.04 0.04 0.04" rotation="0 180 0">
-          <a-gltf-model src="#mex-taco" animation-mixer></a-gltf-model>
+          <a-gltf-model id="mexModel" src="#mex-taco" animation-mixer="clip:*; loop:once; clampWhenFinished:true; timeScale:0"></a-gltf-model>
         </a-entity>
       </a-entity>
     </a-scene>
+  </div>
+
+  <div id="ar-ui" class="hidden">
+    <div class="ui-bar">
+      <button id="btnPlayAnim"> ▶ </button>
+      <button id="btnStats"> 📊 </button>
+      <button id="btnCountry"> 🗺️ </button>
+    </div>
+
+    <div id="panel-stats" class="side-panel hidden">
+      <div class="panel-header">
+        <h3>Estadísticas de Fútbol</h3>
+        <button class="panel-close" data-close="#panel-stats">✕</button>
+      </div>
+
+      <div class="panel-body" id="stats-body"></div>
+    </div>
+
+    <div id="panel-country" class="side-panel hidden">
+      <div class="panel-header">
+        <h3>Información del País</h3>
+        <button class="panel-close" data-close="#panel-country">✕</button>
+      </div>
+
+      <div class="panel-body" id="country-body"></div>
+    </div>
   </div>
 
   <div id="help-modal" class="modal hidden">

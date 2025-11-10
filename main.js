@@ -84,6 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
     mexicoFlagTarget.addEventListener("targetFound", () => console.log("¡Bandera de México!"));
     mexicoFlagTarget.addEventListener("targetLost",  () => console.log("Bandera perdida"));
   }
+  const mexModel = document.querySelector('#Mexico-flag a-gltf-model');
+
 
   //HELP
   const helpButton  = document.querySelector("#helpButton");
@@ -114,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       closeHelp();
     }
   });
+
 
   //TRIVIA
   (() => {
@@ -362,4 +365,146 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelector('.filter-btn[data-filter="none"]')?.classList.add('active');
+
+  /*UXUI AR*/
+  (() => {
+    const arUI         = document.getElementById('ar-ui');           
+    const btnPlayAnim  = document.getElementById('btnPlayAnim');     
+    const btnStats     = document.getElementById('btnStats');        
+    const btnCountry   = document.getElementById('btnCountry');      
+    const panelStats   = document.getElementById('panel-stats');
+    const panelCountry = document.getElementById('panel-country');
+    const statsBody    = document.getElementById('stats-body');
+    const countryBody  = document.getElementById('country-body');
+
+    const DATA = {
+      mexico: {
+        stats: {
+          seleccion: "México",
+          apodos: ["El Tri"],
+          copasDelMundo: 0,
+          copaConfederaciones: 1,
+          copaOro: 13,
+          ligaNacionesCONCACAF: 1,
+          oroOlimpico: 1,
+          bronceOlimpico: 1,
+          mundialSub17: 2,
+          participacionesMundial: 18,
+          mejorResultado: "Cuartos de final (1970, 1986)",
+          confederaciones: 1,
+          estrellas: ["Hirving Lozano", "Edson Álvarez", "Santiago Giménez"]
+        },
+        info: {
+          pais: "México",
+          capital: "Ciudad de México",
+          region: "Norteamérica",
+          idioma: "Español",
+          lenguasIndigenasReconocidas: "68",
+          presidenta: "Claudia Sheinbaum Pardo",
+          periodoPresidencial: "2024-2030",
+          moneda: "Peso mexicano (MXN)",
+          curiosidad: "Sede mundialista en 1970 y 1986."
+        }
+      }
+    };
+
+    //animación con animation-mixer
+    function ensureMixerPaused(modelEl) {
+      if (!modelEl) return;
+      const cur = modelEl.getAttribute('animation-mixer') || {};
+      const merged = Object.assign(
+        { clip: '*', loop: 'once', clampWhenFinished: true, timeScale: 0 },
+        (typeof cur === 'object' ? cur : AFRAME.utils.styleParser.parse(cur))
+      );
+      modelEl.setAttribute('animation-mixer', merged);
+    }
+
+    function playOrRestartAnimation(modelEl) {
+      if (!modelEl) return;
+      const current = modelEl.getAttribute('animation-mixer') || {};
+      modelEl.removeAttribute('animation-mixer');
+      modelEl.setAttribute('animation-mixer', Object.assign({}, current, { timeScale: 1, loop: 'once', clampWhenFinished: true }));
+    }
+
+    function pauseAnimation(modelEl) {
+      if (!modelEl) return;
+      const current = modelEl.getAttribute('animation-mixer') || {};
+      modelEl.setAttribute('animation-mixer', Object.assign({}, current, { timeScale: 0 }));
+    }
+
+    function showARUI(){ arUI && arUI.classList.remove('hidden'); }
+    function hideARUI(){
+      if (!arUI) return;
+      arUI.classList.add('hidden');
+      panelStats?.classList.add('hidden');
+      panelCountry?.classList.add('hidden');
+      pauseAnimation(mexModel);
+    }
+
+    document.querySelectorAll('.panel-close')?.forEach(b=>{
+      b.addEventListener('click', (e)=>{
+        const sel = e.currentTarget.getAttribute('data-close');
+        document.querySelector(sel)?.classList.add('hidden');
+      });
+    });
+
+    if (mexicoFlagTarget) {
+      mexicoFlagTarget.addEventListener('targetFound', () => {
+        console.log("¡Bandera de México!");
+        showARUI();
+        ensureMixerPaused(mexModel);
+      });
+
+      mexicoFlagTarget.addEventListener('targetLost', () => {
+        console.log("Bandera perdida");
+        hideARUI();
+      });
+    }
+    btnPlayAnim?.addEventListener('click', () => {
+      playOrRestartAnimation(mexModel);
+    });
+
+    btnStats?.addEventListener('click', () => {
+      const d = DATA.mexico.stats;
+      statsBody.innerHTML = `
+        <p><strong>Selección:</strong> ${d.seleccion}</p>
+        <p><strong>Apodos:</strong> ${d.apodos.join(', ')}</p>
+        <p class="pill">Copas del Mundo: ${d.copasDelMundo}</p>
+        <p class="pill">Participaciones: ${d.participacionesMundial}</p>
+        <p><strong>Mejor resultado:</strong> ${d.mejorResultado}</p>
+        <p class="pill">Copa Confederaciones: ${d.confederaciones}</p>
+        <p class="pill">Copa Oro: ${d.copaOro}</p>
+        <p class="pill">Liga de Naciones CONCACAF: ${d.ligaNacionesCONCACAF}</p>
+        <p class="pill">Oro Olímpico: ${d.oroOlimpico}</p>
+        <p class="pill">Bronce Olímpico: ${d.bronceOlimpico}</p>
+        <p class="pill">Mundial Sub-17: ${d.mundialSub17}</p>
+        <p><strong>Jugadores clave:</strong> ${d.estrellas.join(', ')}</p>
+      `;
+      panelCountry?.classList.add('hidden');
+      panelStats?.classList.remove('hidden');
+    });
+
+    btnCountry?.addEventListener('click', () => {
+      const d = DATA.mexico.info;
+      countryBody.innerHTML = `
+        <p><strong>País:</strong> ${d.pais}</p>
+        <p><strong>Capital:</strong> ${d.capital}</p>
+        <p><strong>Región:</strong> ${d.region}</p>
+        <p><strong>Idioma:</strong> ${d.idioma}</p>
+        <p><strong>Lenguas indígenas reconocidas:</strong> ${d.lenguasIndigenasReconocidas}</p>
+        <p><strong>Presidencia:</strong> ${d.presidenta} (${d.periodoPresidencial})</p>
+        <p><strong>Moneda:</strong> ${d.moneda}</p>
+        <p><strong>Dato:</strong> ${d.curiosidad}</p>
+      `;
+      panelStats?.classList.add('hidden');
+      panelCountry?.classList.remove('hidden');
+    });
+
+    sceneEl?.addEventListener('click', (e) => {
+      if (!e.target.closest?.('.ui-bar') && !e.target.closest?.('.side-panel')) {
+        panelStats?.classList.add('hidden');
+        panelCountry?.classList.add('hidden');
+      }
+    });
+  })();
 });
