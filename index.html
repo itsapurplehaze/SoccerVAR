@@ -25,10 +25,9 @@
   </div>
 
   <div id="ar-container" class="hidden">
-    <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind; filterMinCF: 0.1; filterBeta: 100; warmupTolerance: 5; missTolerance: 10;" 
-    color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights: true; toneMapping: ACESFilmic; exposure: 1" 
-    vr-mode-ui="enabled: false" 
-    device-orientation-permission-ui="enabled: true" autostart="false">
+    <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind; autoStart: false; filterMinCF: 0.1; filterBeta: 100; warmupTolerance: 5; missTolerance: 10;"
+    color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights: true; toneMapping: ACESFilmic; exposure: 1"
+    vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true">
 
       <!--Cámara-->
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>

@@ -40,14 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
       //1) Verifica HTTPS/localhost
       const isSecure = window.isSecureContext || location.protocol === "https:" || location.hostname === "localhost";
       if (!isSecure) throw Object.assign(new Error("La cámara requiere HTTPS o localhost."), { code: "INSECURE_CONTEXT" });
-
+          
+      // 1.5) Pide permiso de cámara ANTES de MindAR (evita dummyRun undefined)
+      await probeCamera();
+          
       //2) Espera a que A-Frame esté listo
       await waitSceneLoaded();
-
+          
       //3) Arranca MindAR
       const arSystem = sceneEl.systems["mindar-image-system"];
       if (!arSystem || !arSystem.start) throw Object.assign(new Error("MindAR no está inicializado en la escena."), { code: "AR_UNAVAILABLE" });
-
+          
       await arSystem.start();
       console.log("AR ON");
       startButton.textContent = "Ejecutando...";
