@@ -863,7 +863,7 @@ body{
     pointer-events: auto;
     z-index: 40;
     background: rgba(8,10,18,0.85);
-    border: 1px solid rgba(255, 0, 123, 0.35);
+    border: 1px solid rgba(0,255,200,0.35);
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.45);
     backdrop-filter: blur(8px);
@@ -896,7 +896,7 @@ body{
   margin: 4px 6px 0 0; 
   padding: 6px 10px;
   background: rgba(0,255,200,0.12); 
-  border: 1px solid rgba(255, 0, 123, 0.25);
+  border: 1px solid rgba(0,255,200,0.25); 
   border-radius: 999px;
 }
 

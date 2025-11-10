@@ -475,8 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btnPlayAnim?.addEventListener('click', () => {
         if (!animState.ready) return;
         if (!animState.playing) {
-          mexModel.removeAttribute('animation-mixer');
-          setMixer({ clip: animState.chosenClip, timeScale:1, loop:'once', clampWhenFinished:true });
+          setMixer({timeScale:1});
           setPlayUI(true);
         } else {
           setMixer({ timeScale:0 });
