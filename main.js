@@ -52,6 +52,324 @@ const DATA = {
       moneda: "Peso mexicano (MXN)",
       curiosidad: "Sede mundialista en 1970 y 1986."
     }
+  },
+  argentina: {
+    stats: {
+      seleccion: "Argentina",
+      apodos: ["La Albiceleste", "La Scaloneta"],
+      copasDelMundo: 3,
+      copaConfederaciones: 1,
+      copaAmerica: 15,
+      copaDeCampeonesCONMEBOLUEFA: 2,
+      oroOlimpico: 2,
+      bronceOlimpico: 0,
+      mundialSub17: 0,
+      participacionesMundial: 18,
+      mejorResultado: "Campeón (1978, 1986, 2022)",
+      estrellas: ["Lionel Messi", "Emiliano Martínez", "Julián Álvarez", "Lautaro Martínez"]
+    },
+    info: {
+      pais: "Argentina",
+      capital: "Buenos Aires",
+      region: "América del Sur",
+      idioma: "Español",
+      lenguasIndigenasReconocidas: "Varias (Guaraní, Quechua, Mapudungun, etc.)",
+      presidente: "Javier Milei",
+      periodoPresidencial: "2023-2027",
+      moneda: "Peso argentino (ARS)",
+      curiosidad: "Máximo ganador de la Copa América (15, empatado con Uruguay) y actual campeón del mundo."
+    }
+  },
+  australia: {
+    stats:{
+      seleccion: "Australia",
+      apodos: ["Socceroos"],
+      copasDelMundo: 0,
+      copaConfederaciones: 0,
+      copaAsiaticaAFC: 1,
+      copaDeNacionesOFC: 4,
+      oroOlimpico: 0,
+      bronceOlimpico: 0,
+      mundialSub17: 0,
+      participacionesMundial: 6,
+      mejorResultado: "Octavos de final (2006, 2022)",
+      estrellas: ["Mathew Ryan", "Harry Souttar", "Ajdin Hrustic"]
+    },
+    info: {
+      pais: "Australia",
+      capital: "Canberra",
+      region: "Oceanía",
+      idioma: "Inglés",
+      lenguasIndigenasReconocidas: "Aprox. 250",
+      jefeDeEstado: "Carlos III (Rey)",
+      primerMinistro: "Anthony Albanese",
+      periodoPrimerMinistro: "Desde 2022",
+      moneda: "Dólar australiano (AUD)",
+      curiosidad: "Compite en la confederación asiática (AFC) desde 2006, a pesar de estar geográficamente en Oceanía."
+    }
+  },
+  brasil: {
+    stats:{
+      seleccion: "Brasil",
+      apodos: ["A Canarinha", "Verde-Amarela", "A Seleção"],
+      copasDelMundo: 5,
+      copaConfederaciones: 4,
+      copaAmerica: 9,
+      oroOlimpico: 2,
+      bronceOlimpico: 2,
+      mundialSub17: 4,
+      participacionesMundial: 22,
+      mejorResultado: "Campeón (1958, 1962, 1970, 1994, 2002)",
+      estrellas: ["Vinícius Júnior", "Rodrygo", "Endrick", "Alisson"]
+    },
+    info: {
+      pais: "Brasil",
+      capital: "Brasilia",
+      region: "América del Sur",
+      idioma: "Portugués",
+      lenguasIndigenasReconocidas: "Aprox. 274",
+      presidente: "Luiz Inácio Lula da Silva",
+      periodoPresidencial: "2023-2027",
+      moneda: "Real brasileño (BRL)",
+      curiosidad: "Es el único país que ha participado en todas las Copas del Mundo."
+    }
+  }, 
+  canada: {
+    stats: {
+      seleccion: "Canadá",
+      apodos: ["The Canucks", "Les Rouges"],
+      copasDelMundo: 0,
+      copaConfederaciones: 1,
+      copaOro: 2,
+      ligaNacionesCONCACAF: 0,
+      oroOlimpico: 1,
+      bronceOlimpico: 0,
+      mundialSub17: 0,
+      participacionesMundial: 2,
+      mejorResultado: "Fase de grupos (1986, 2022)",
+      estrellas: ["Alphonso Davies", "Jonathan David", "Stephen Eustáquio"]
+    },
+    info: {
+      pais: "Canadá",
+      capital: "Ottawa",
+      region: "Norteamérica",
+      idioma: "Inglés y Francés (oficiales)",
+      lenguasIndigenasReconocidas: "Más de 70",
+      jefeDeEstado: "Carlos III (Rey)",
+      primerMinistro: "Justin Trudeau",
+      periodoPrimerMinistro: "Desde 2015",
+      moneda: "Dólar canadiense (CAD)",
+      curiosidad: "Será co-anfitrión de la Copa del Mundo 2026."
+    }
+  },
+  korea: {
+    stats: {
+      seleccion: "Corea del Sur",
+      apodos: ["Guerreros Taeguk", "Tigres de Asia"],
+      copasDelMundo: 0,
+      copaConfederaciones: 0,
+      copaAsiaticaAFC: 2,
+      oroOlimpico: 0,
+      bronceOlimpico: 1,
+      mundialSub17: 0,
+      participacionesMundial: 11,
+      mejorResultado: "Cuarto lugar (2002)",
+      estrellas: ["Son Heung-min", "Kim Min-jae", "Lee Kang-in"]
+    },
+    info: {
+      pais: "Corea del Sur",
+      capital: "Seúl",
+      region: "Asia Oriental",
+      idioma: "Coreano",
+      presidente: "Lee Jae-myung",
+      periodoPresidencial: "2025-2030",
+      moneda: "Won surcoreano (KRW)",
+      curiosidad: "Fue co-anfitrión del Mundial 2002 (junto a Japón), logrando su mejor resultado histórico al llegar a semifinales."
+    }
+  },
+  ecuador: {
+    stats: {
+      seleccion: "Ecuador",
+      apodos: ["La Tri"],
+      copasDelMundo: 0,
+      copaConfederaciones: 0,
+      copaAmerica: 0,
+      oroOlimpico: 0,
+      bronceOlimpico: 0,
+      mundialSub17: 0,
+      participacionesMundial: 4,
+      mejorResultado: "Octavos de final (2006)",
+      estrellas: ["Moisés Caicedo", "Pervis Estupiñán", "Piero Hincapié", "Enner Valencia"]
+    },
+    info: {
+      pais: "Ecuador",
+      capital: "Quito",
+      region: "América del Sur",
+      idioma: "Español",
+      lenguasIndigenasReconocidas: "Kichwa y Shuar (oficiales interculturales)",
+      presidente: "Daniel Noboa",
+      periodoPresidencial: "2023-2025",
+      moneda: "Dólar estadounidense (USD)",
+      curiosidad: "Es uno de los dos países de Sudamérica que no comparte frontera con Brasil (el otro es Chile)."
+    }
+  },
+  usa: {
+    stats: {
+      seleccion: "Estados Unidos",
+      apodos: ["USMNT", "The Yanks", "Stars and Stripes"],
+      copasDelMundo: 0,
+      copaConfederaciones: 0,
+      copaOro: 7,
+      ligaNacionesCONCACAF: 3,
+      oroOlimpico: 2,
+      bronceOlimpico: 1,
+      mundialSub17: 0,
+      participacionesMundial: 11,
+      mejorResultado: "Tercer lugar (1930)",
+      estrellas: ["Christian Pulisic", "Weston McKennie", "Gio Reyna", "Folarin Balogun"]
+    },
+    info: {
+      pais: "Estados Unidos",
+      capital: "Washington, D.C.",
+      region: "Norteamérica",
+      idioma: "Inglés (de facto)",
+      lenguasIndigenasReconocidas: "Varias (Navajo, Yupik, Sioux, etc.)",
+      presidente: "Joe Biden",
+      periodoPresidencial: "2021-2025",
+      moneda: "Dólar estadounidense (USD)",
+      curiosidad: "Será el anfitrión principal de la Copa del Mundo 2026, junto a México y Canadá."
+    }
+  },
+  iran: {
+    stats: {
+      seleccion: "Irán",
+      apodos: ["Team Melli", "Los Príncipes de Persia"],
+      copasDelMundo: 0,
+      copaConfederaciones: 0,
+      copaAsiaticaAFC: 3,
+      oroOlimpico: 0,
+      bronceOlimpico: 0,
+      mundialSub17: 0,
+      participacionesMundial: 7,
+      mejorResultado: "Fase de grupos",
+      estrellas: ["Mehdi Taremi", "Sardar Azmoun", "Alireza Jahanbakhsh"]
+    },
+    info: {
+      pais: "Irán",
+      capital: "Teherán",
+      region: "Asia Occidental",
+      idioma: "Persa",
+      lenguasIndigenasReconocidas: "Varias (Azerí, Kurdo, Lurí, etc.)",
+      presidente: "Masoud Pezeshkian",
+      periodoPresidencial: "2024-2028",
+      moneda: "Rial iraní (IRR)",
+      curiosidad: "Ganó la Copa Asiática tres veces consecutivas (1968, 1972 y 1976)."
+    }
+  },
+  japon: {
+    stats: {
+      seleccion: "Japón",
+      apodos: ["Samuráis Azules", "Nippon Daihyō"],
+      copasDelMundo: 0,
+      copaConfederaciones: 1,
+      copaAsiaticaAFC: 4,
+      oroOlimpico: 0,
+      bronceOlimpico: 1,
+      mundialSub17: 0,
+      participacionesMundial: 7,
+      mejorResultado: "Octavos de final (2002, 2010, 2018, 2022)",
+      estrellas: ["Takefusa Kubo", "Kaoru Mitoma", "Wataru Endo", "Takehiro Tomiyasu"]
+    },
+    info: {
+      pais: "Japón",
+      capital: "Tokio",
+      region: "Asia Oriental",
+      idioma: "Japonés",
+      jefeDeEstado: "Naruhito (Emperador)",
+      primerMinistro: "Shigeru Ishiba",
+      periodoPrimerMinistro: "Desde 2024",
+      moneda: "Yen japonés (JPY)",
+      curiosidad: "Es el máximo ganador de la Copa Asiática (4 títulos) y fue co-anfitrión del Mundial 2002."
+    }
+  },
+  jordania: {
+    stats: {
+      seleccion: "Jordania",
+      apodos: ["Al-Nashama"],
+      copasDelMundo: 0,
+      copaConfederaciones: 0,
+      copaAsiaticaAFC: 0,
+      oroOlimpico: 0,
+      bronceOlimpico: 0,
+      mundialSub17: 0,
+      participacionesMundial: 0,
+      mejorResultado: "Nunca ha clasificado",
+      estrellas: ["Mousa Al-Tamari", "Yazan Al-Naimat", "Ehsan Haddad"]
+    },
+    info: {
+      pais: "Jordania",
+      capital: "Amán",
+      region: "Asia Occidental",
+      idioma: "Árabe",
+      lenguasIndigenasReconocidas: "N/A",
+      jefeDeEstado: "Abdullah II (Rey)",
+      primerMinistro: "Bisher Al-Khasawneh",
+      periodoPrimerMinistro: "Desde 2020",
+      moneda: "Dinar jordano (JOD)",
+      curiosidad: "Logró un histórico subcampeonato en la Copa Asiática en la edición de 2023."
+    }
+  },
+  newzealand: {
+    stats: {
+      seleccion: "Nueva Zelanda",
+      apodos: ["All Whites", "Kiwis"],
+      copasDelMundo: 0,
+      copaConfederaciones: 0,
+      copaDeNacionesOFC: 5,
+      oroOlimpico: 0,
+      bronceOlimpico: 0,
+      mundialSub17: 0,
+      participacionesMundial: 2,
+      mejorResultado: "Fase de grupos (1982, 2010)",
+      estrellas: ["Chris Wood", "Liberato Cacace", "Matthew Garbett"]
+    },
+    info: {
+      pais: "Nueva Zelanda",
+      capital: "Wellington",
+      region: "Oceanía",
+      idioma: "Inglés, Maorí (oficiales)",
+      jefeDeEstado: "Carlos III (Rey)",
+      primerMinistro: "Christopher Luxon",
+      periodoPrimerMinistro: "Desde 2023",
+      moneda: "Dólar neozelandés (NZD)",
+      curiosidad: "Fue el único equipo que terminó invicto en la Copa del Mundo de 2010 (empató sus 3 partidos)."
+    }
+  },
+  uzbekistan: {
+    stats: {
+      seleccion: "Uzbekistán",
+      apodos: ["Lobos Blancos"],
+      copasDelMundo: 0,
+      copaConfederaciones: 0,
+      copaAsiaticaAFC: 0,
+      oroOlimpico: 0,
+      bronceOlimpico: 0,
+      mundialSub17: 0,
+      participacionesMundial: 0,
+      mejorResultado: "Nunca ha clasificado",
+      estrellas: ["Eldor Shomurodov", "Jaloliddin Masharipov", "Otabek Shukurov"]
+    },
+    info: {
+      pais: "Uzbekistán",
+      capital: "Taskent",
+      region: "Asia Central",
+      idioma: "Uzbeko",
+      lenguasIndigenasReconocidas: "Karakalpako, Ruso (uso común)",
+      presidente: "Shavkat Mirziyoyev",
+      periodoPresidencial: "Desde 2016",
+      moneda: "Som uzbeko (UZS)",
+      curiosidad: "Es uno de los dos únicos países del mundo 'doblemente sin salida al mar' (el otro es Liechtenstein)."
+    }
   }
 };
 
