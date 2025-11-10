@@ -40,17 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
       //1) Verifica HTTPS/localhost
       const isSecure = window.isSecureContext || location.protocol === "https:" || location.hostname === "localhost";
       if (!isSecure) throw Object.assign(new Error("La cámara requiere HTTPS o localhost."), { code: "INSECURE_CONTEXT" });
-          
+
       // 1.5) Pide permiso de cámara ANTES de MindAR (evita dummyRun undefined)
       await probeCamera();
-          
+
       //2) Espera a que A-Frame esté listo
       await waitSceneLoaded();
-          
+
       //3) Arranca MindAR
       const arSystem = sceneEl.systems["mindar-image-system"];
       if (!arSystem || !arSystem.start) throw Object.assign(new Error("MindAR no está inicializado en la escena."), { code: "AR_UNAVAILABLE" });
-          
+
       await arSystem.start();
       console.log("AR ON");
       startButton.textContent = "Ejecutando...";
@@ -411,39 +411,79 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    //animación con animation-mixer
-    function ensureMixerPaused(modelEl) {
-      if (!modelEl) return;
-      const cur = modelEl.getAttribute('animation-mixer') || {};
-      const merged = Object.assign(
-        { clip: '*', loop: 'once', clampWhenFinished: true, timeScale: 0 },
-        (typeof cur === 'object' ? cur : AFRAME.utils.styleParser.parse(cur))
-      );
-      modelEl.setAttribute('animation-mixer', merged);
-    }
+    //animación
+      const PRIORITY = ['run','dance','celebration','celebrate','kick','goal','shoot','attack','jump','wave','spin'];
+      const animState = { ready:false, playing:false, chosenClip:'*' };
 
-    function playOrRestartAnimation(modelEl) {
-      if (!modelEl) return;
-      const current = modelEl.getAttribute('animation-mixer') || {};
-      modelEl.removeAttribute('animation-mixer');
-      modelEl.setAttribute('animation-mixer', Object.assign({}, current, { timeScale: 1, loop: 'once', clampWhenFinished: true }));
-    }
+      function chooseNotableClip(clips) {
+        // 1) por nombre "notorio"
+        const byName = clips.find(c => PRIORITY.some(k => (c.name||'').toLowerCase().includes(k)));
+        if (byName) return byName.name;
+        // 2) evita idle/stand/breath/loop; toma la más larga
+        const nonIdle = clips.filter(c => !/(idle|stand|breath|loop)/i.test(c.name||''));
+        if (nonIdle.length) return nonIdle.sort((a,b)=>(b.duration||0)-(a.duration||0))[0].name;
+        // 3) fallback: la más larga
+        return [...clips].sort((a,b)=>(b.duration||0)-(a.duration||0))[0]?.name || '*';
+      }
+    
+      function setMixer(opts = {}) {
+        if (!mexModel) return;
+        const cur = mexModel.getAttribute('animation-mixer') || {};
+        mexModel.setAttribute('animation-mixer', Object.assign({
+          loop:'once', clampWhenFinished:true
+        }, cur, opts));
+      }
+    
+      function setPlayUI(isPlaying){
+        animState.playing = !!isPlaying;
+        if (btnPlayAnim) {
+          btnPlayAnim.textContent = animState.playing ? '⏸' : '▶';
+          btnPlayAnim.setAttribute('aria-label', animState.playing ? 'Pausar animación' : 'Reproducir animación');
+        }
+      }
+    
+      mexModel?.addEventListener('model-loaded', () => {
+        const clips = mexModel.components['gltf-model']?.model?.animations || [];
+        if (!clips.length) {
+          animState.ready = true; animState.chosenClip = '*';
+          setMixer({ clip:'*', timeScale:0 });
+          setPlayUI(false);
+          return;
+        }
+        animState.chosenClip = chooseNotableClip(clips);
+        setMixer({ clip: animState.chosenClip, timeScale:0 });
+        animState.ready = true;
+        setPlayUI(false);
+      });
+    
+      // Tracking: mostrar/ocultar UI y resetear anim/botón
+      mexicoFlagTarget?.addEventListener('targetFound', () => {
+        arUI?.classList.remove('hidden');
+        if (animState.ready) { setMixer({ clip: animState.chosenClip, timeScale:0 }); setPlayUI(false); }
+      });
+      mexicoFlagTarget?.addEventListener('targetLost', () => {
+        arUI?.classList.add('hidden');
+        panelStats?.classList.add('hidden');
+        panelCountry?.classList.add('hidden');
+        if (animState.ready) { setMixer({ timeScale:0 }); setPlayUI(false); }
+      });
+    
+      // ▶ / ⏸
+      btnPlayAnim?.addEventListener('click', () => {
+        if (!animState.ready) return;
+        if (!animState.playing) {
+          mexModel.removeAttribute('animation-mixer');
+          setMixer({ clip: animState.chosenClip, timeScale:1, loop:'once', clampWhenFinished:true });
+          setPlayUI(true);
+        } else {
+          setMixer({ timeScale:0 });
+          setPlayUI(false);
+        }
+      });
+    
+      mexModel?.addEventListener('animation-finished', () => setPlayUI(false));
 
-    function pauseAnimation(modelEl) {
-      if (!modelEl) return;
-      const current = modelEl.getAttribute('animation-mixer') || {};
-      modelEl.setAttribute('animation-mixer', Object.assign({}, current, { timeScale: 0 }));
-    }
-
-    function showARUI(){ arUI && arUI.classList.remove('hidden'); }
-    function hideARUI(){
-      if (!arUI) return;
-      arUI.classList.add('hidden');
-      panelStats?.classList.add('hidden');
-      panelCountry?.classList.add('hidden');
-      pauseAnimation(mexModel);
-    }
-
+    //INFO
     document.querySelectorAll('.panel-close')?.forEach(b=>{
       b.addEventListener('click', (e)=>{
         const sel = e.currentTarget.getAttribute('data-close');
