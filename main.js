@@ -379,6 +379,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const panelCountry = document.getElementById('panel-country');
     const statsBody    = document.getElementById('stats-body');
     const countryBody  = document.getElementById('country-body');
+    const sceneEl          = document.querySelector('a-scene');
+    const mexicoFlagTarget = document.getElementById('Mexico-flag');
+    const mexModel         = document.getElementById('mexModel');
 
     const DATA = {
       mexico: {
@@ -489,22 +492,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const sel = e.currentTarget.getAttribute('data-close');
         document.querySelector(sel)?.classList.add('hidden');
       });
-    });
-
-    if (mexicoFlagTarget) {
-      mexicoFlagTarget.addEventListener('targetFound', () => {
-        console.log("¡Bandera de México!");
-        showARUI();
-        ensureMixerPaused(mexModel);
-      });
-
-      mexicoFlagTarget.addEventListener('targetLost', () => {
-        console.log("Bandera perdida");
-        hideARUI();
-      });
-    }
-    btnPlayAnim?.addEventListener('click', () => {
-      playOrRestartAnimation(mexModel);
     });
 
     btnStats?.addEventListener('click', () => {
