@@ -419,6 +419,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Estado de la animación (mucho más simple)
     const animState = { playing: false };
+
+    let floatTime = 0;
     // Función para actualizar el botón y el estado
     function setPlayUI(isPlaying) {
       animState.playing = !!isPlaying;
@@ -445,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setPlayUI(!animState.playing);
     });
   
-    sceneEl?.addEventListener('tick', () => {
+    sceneEl?.addEventListener('tick', (time, timeDelta) => {
       // Si el estado es 'playing' y el contenedor existe...
       if (animState.playing && mexModelContainer) {
         // Obtenemos la rotación actual
@@ -453,8 +455,19 @@ document.addEventListener("DOMContentLoaded", () => {
         // Le sumamos 1 grado a la rotación en Y
         mexModelContainer.setAttribute('rotation', { 
           x: currentRotation.x, 
-          y: currentRotation.y + 1, // Puedes cambiar '1' a '0.5' (más lento) o '2' (más rápido)
+          y: currentRotation.y + 1.5,
           z: currentRotation.z 
+        });
+
+        // Movimiento flotante
+        floatTime += timeDelta / 1000;
+        const floatY = Math.sin(floatTime * 1.5) * 0.08; 
+
+        const currentPosition = mexModelContainer.getAttribute('position');
+        mexModelContainer.setAttribute('position', { 
+          x: currentPosition.x,
+          y: 0.1 + floatY,
+          z: currentPosition.z
         });
       }
     });
