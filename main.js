@@ -415,75 +415,49 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     //animación
-      const PRIORITY = ['run','dance','celebration','celebrate','kick','goal','shoot','attack','jump','wave','spin'];
-      const animState = { ready:false, playing:false, chosenClip:'*' };
-
-      function chooseNotableClip(clips) {
-        // 1) por nombre "notorio"
-        const byName = clips.find(c => PRIORITY.some(k => (c.name||'').toLowerCase().includes(k)));
-        if (byName) return byName.name;
-        // 2) evita idle/stand/breath/loop; toma la más larga
-        const nonIdle = clips.filter(c => !/(idle|stand|breath|loop)/i.test(c.name||''));
-        if (nonIdle.length) return nonIdle.sort((a,b)=>(b.duration||0)-(a.duration||0))[0].name;
-        // 3) fallback: la más larga
-        return [...clips].sort((a,b)=>(b.duration||0)-(a.duration||0))[0]?.name || '*';
+    const mexModelContainer = document.getElementById('mexModelContainer');
+  
+    // Estado de la animación (mucho más simple)
+    const animState = { playing: false };
+    // Función para actualizar el botón y el estado
+    function setPlayUI(isPlaying) {
+      animState.playing = !!isPlaying;
+      if (btnPlayAnim) {
+        btnPlayAnim.textContent = animState.playing ? '⏸' : '▶';
+        btnPlayAnim.setAttribute('aria-label', animState.playing ? 'Pausar' : 'Reproducir');
       }
-    
-      function setMixer(opts = {}) {
-        if (!mexModel) return;
-        const cur = mexModel.getAttribute('animation-mixer') || {};
-        mexModel.setAttribute('animation-mixer', Object.assign({
-          loop:'once', clampWhenFinished:true
-        }, cur, opts));
+    }
+  
+    // Tracking: mostrar/ocultar UI y resetear anim/botón
+    mexicoFlagTarget?.addEventListener('targetFound', () => {
+      arUI?.classList.remove('hidden');
+      setPlayUI(false);
+    });
+    mexicoFlagTarget?.addEventListener('targetLost', () => {
+      arUI?.classList.add('hidden');
+      panelStats?.classList.add('hidden');
+      panelCountry?.classList.add('hidden');
+      setPlayUI(false);
+    });
+  
+    // ▶ / ⏸
+    btnPlayAnim?.addEventListener('click', () => {
+      setPlayUI(!animState.playing);
+    });
+  
+    sceneEl?.addEventListener('tick', () => {
+      // Si el estado es 'playing' y el contenedor existe...
+      if (animState.playing && mexModelContainer) {
+        // Obtenemos la rotación actual
+        const currentRotation = mexModelContainer.getAttribute('rotation');
+        // Le sumamos 1 grado a la rotación en Y
+        mexModelContainer.setAttribute('rotation', { 
+          x: currentRotation.x, 
+          y: currentRotation.y + 1, // Puedes cambiar '1' a '0.5' (más lento) o '2' (más rápido)
+          z: currentRotation.z 
+        });
       }
-    
-      function setPlayUI(isPlaying){
-        animState.playing = !!isPlaying;
-        if (btnPlayAnim) {
-          btnPlayAnim.textContent = animState.playing ? '⏸' : '▶';
-          btnPlayAnim.setAttribute('aria-label', animState.playing ? 'Pausar animación' : 'Reproducir animación');
-        }
-      }
-    
-      mexModel?.addEventListener('model-loaded', () => {
-        const clips = mexModel.components['gltf-model']?.model?.animations || [];
-        if (!clips.length) {
-          animState.ready = true; animState.chosenClip = '*';
-          setMixer({ clip:'*', timeScale:0 });
-          setPlayUI(false);
-          return;
-        }
-        animState.chosenClip = chooseNotableClip(clips);
-        setMixer({ clip: animState.chosenClip, timeScale:0 });
-        animState.ready = true;
-        setPlayUI(false);
-      });
-    
-      // Tracking: mostrar/ocultar UI y resetear anim/botón
-      mexicoFlagTarget?.addEventListener('targetFound', () => {
-        arUI?.classList.remove('hidden');
-        if (animState.ready) { setMixer({ clip: animState.chosenClip, timeScale:0 }); setPlayUI(false); }
-      });
-      mexicoFlagTarget?.addEventListener('targetLost', () => {
-        arUI?.classList.add('hidden');
-        panelStats?.classList.add('hidden');
-        panelCountry?.classList.add('hidden');
-        if (animState.ready) { setMixer({ timeScale:0 }); setPlayUI(false); }
-      });
-    
-      // ▶ / ⏸
-      btnPlayAnim?.addEventListener('click', () => {
-        if (!animState.ready) return;
-        if (!animState.playing) {
-          setMixer({timeScale:1});
-          setPlayUI(true);
-        } else {
-          setMixer({ timeScale:0 });
-          setPlayUI(false);
-        }
-      });
-    
-      mexModel?.addEventListener('animation-finished', () => setPlayUI(false));
+    });
 
     //INFO
     document.querySelectorAll('.panel-close')?.forEach(b=>{
